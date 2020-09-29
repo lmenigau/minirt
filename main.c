@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/09/29 10:57:33 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/09/29 11:04:33 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ char		*g_keys[] = {
 	"tr",
 }
 
-char		*g_keyfuncs[] = {
+/*char		*g_keyfuncs[] = {
 	parse_reso,
 	parse_cam,
 	parse_sphere,
 	parse_triangle;	
 }
+*/
 
 int     ft_strcmp(const char *s1, const char *s2)
 {
@@ -67,7 +68,7 @@ void    read_scene(int fd)
 
 	while (size = read(fd, buffer, 65336) >0)
 	{
-		parse_sccene(scene);	
+		parse_scene(buffer);	
 	}
 }
 
