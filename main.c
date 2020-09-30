@@ -6,30 +6,30 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/09/29 11:04:33 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/09/30 14:50:37 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <fcntl.h>
 #include "mlx.h"
 #include "minirt.h"
 
-t_options   g_options;
-
+t_options	g_options;
 char		*g_keys[] = {
 	"R",
 	"c",
 	"sp",
 	"tr",
-}
+};
 
 /*char		*g_keyfuncs[] = {
-	parse_reso,
-	parse_cam,
-	parse_sphere,
-	parse_triangle;	
-}
-*/
+ *  parse_reso,
+ *  parse_cam,
+ *  parse_sphere,
+ *  parse_triangle;
+ * }
+ */
 
 int     ft_strcmp(const char *s1, const char *s2)
 {
@@ -41,7 +41,7 @@ int     ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void	parse_keys();
+void   parse_keys()
 {
 
 }
@@ -51,13 +51,16 @@ void parse_vec(void)
 
 }
 
-char *parse_sccene(char *scene, char *end)
+char *parse_scene(char *scene, size_t max)
 {
-	while (*scene == ' ')
-		scene++;
+	size_t   index = 0;
+
+	while (index < max && scene[index] == ' ')
+		index++;
 	parse_keys();
-	while (*scene != ' ');
-		scene++;
+	while (index < max && scene[index] != ' ')
+		index++;
+	index++;
 	parse_vec();
 }
 
@@ -66,9 +69,9 @@ void    read_scene(int fd)
 	char		buffer[65336];
 	ssize_t		size;
 
-	while (size = read(fd, buffer, 65336) >0)
+	while ((size = read(fd, buffer, 65336) >0))
 	{
-		parse_scene(buffer);	
+		parse_scene(buffer, size);
 	}
 }
 
@@ -78,17 +81,16 @@ void    parse_opt(int ac, char *av[])
 	int		fd;
 
 	index = 1;
-	while (index < ac)
+	while (index < 3 && index < ac)
 	{
 		if (av[index][0] == '-' && !ft_strcmp(av[index], "--save"))
 			g_options.save = 1;
 		else
 		{
 			fd = open(av[index], O_RDONLY);
-			parse_sccene(fd):
+			read_scene(fd) ;
 		}
 	}
-	parse_sccene(0);
 }
 
 int         main(int ac, char **av)
