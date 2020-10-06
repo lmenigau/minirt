@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/09/30 14:50:37 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/09/30 23:14:25 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,35 @@ char		*g_keys[] = {
 	"sp",
 	"tr",
 };
+/*
+* char		*g_keyfuncs[] = {
+*  parse_reso,
+*  parse_cam,
+*  parse_sphere,
+*  parse_triangle;
+* }
+*/
 
-/*char		*g_keyfuncs[] = {
- *  parse_reso,
- *  parse_cam,
- *  parse_sphere,
- *  parse_triangle;
- * }
- */
+static int      ft_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int             ft_atoi(char **fmt)
+{
+	int		nb;
+	char	*str;
+
+	str = *fmt;
+	nb = 0;
+	while (*str && ft_isdigit(*str))
+	{
+		nb = nb * 10 + (*str - '0');
+		str++;
+	}
+	*fmt = str - 1;
+	return (nb);
+}
 
 int     ft_strcmp(const char *s1, const char *s2)
 {
@@ -41,7 +62,7 @@ int     ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void   parse_keys()
+void   parse_keys(char *scene, size_t index)
 {
 
 }
@@ -57,7 +78,7 @@ char *parse_scene(char *scene, size_t max)
 
 	while (index < max && scene[index] == ' ')
 		index++;
-	parse_keys();
+	parse_keys(scene, index);
 	while (index < max && scene[index] != ' ')
 		index++;
 	index++;
@@ -88,7 +109,7 @@ void    parse_opt(int ac, char *av[])
 		else
 		{
 			fd = open(av[index], O_RDONLY);
-			read_scene(fd) ;
+			read_scene(fd);
 		}
 	}
 }
