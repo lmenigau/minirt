@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/09/30 23:14:25 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/10/13 16:56:40 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,24 @@ void   parse_keys(char *scene, size_t index)
 }
 
 void parse_vec(void)
+{
+
+}
+
+void parse_res()
+{
+
+}
+
+void parse_tr()
+
+{
+}
+void	parse_object()
+{
+}
+
+void parse_line()
 {
 
 }

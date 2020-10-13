@@ -1,15 +1,16 @@
 SRC		= main.c
 OBJ		= $(SRC:.c=.o)
-
 CFLAGS	= -Wall -Wextra -g -I.
 CC=clang
-NAME	= Cub3d
+LFLAGS	= -lmlx -lXext -lX11
+LDFLAGS	= -L minilibx-linux 
+NAME	= Minirt
 ifeq  '$(shell ar V 2>/dev/null | head -c 3)' 'GNU'
 	ARFLAGS	= Ur
 endif
 
 $(NAME) : $(OBJ) 
-	$(CC) $(OBJ) libmlx.dylib
+	$(CC) $(OBJ) -lmlx -lXext -lX11
 
 .PHONY	: re clean fclean all
 
