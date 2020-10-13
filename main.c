@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/10/13 16:56:40 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:58:32 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,31 @@ void   parse_keys(char *scene, size_t index)
 
 }
 
-void parse_vec(void)
+int parse_vec(void)
 {
 
+	return (0);
 }
 
-void parse_res()
+int  parse_res()
 {
 
+	return (0);
 }
 
-void parse_tr()
-
+int parse_tr()
 {
-}
-void	parse_object()
-{
+	return (0);
 }
 
-void parse_line()
+int	parse_object()
 {
+	return (0);
+}
 
+int  parse_line()
+{
+	return (0);
 }
 
 char *parse_scene(char *scene, size_t max)
@@ -101,6 +105,7 @@ char *parse_scene(char *scene, size_t max)
 		index++;
 	index++;
 	parse_vec();
+	return scene;
 }
 
 void    read_scene(int fd)
