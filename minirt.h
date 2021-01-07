@@ -6,12 +6,15 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/09/30 19:19:43 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:08:52 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H 
+
+# include <stddef.h>
+
 typedef struct	s_options
 {
 	_Bool	save;
@@ -34,10 +37,24 @@ typedef struct s_color
 }				t_color;
 
 
-typedef struct	s_scene
+struct	s_scene
 {
 	_Bool	isreso;
 	_Bool	isambiant;
 	t_ivec	reso;
-}			t_scene;
+};
+
+struct s_buf
+{		
+	size_t	index;
+	int		fd;
+	char	buf[4096];
+};
+
+struct	s_parse
+{
+	struct s_scene	scene;
+	struct s_buf	buf;	
+};
+
 #endif

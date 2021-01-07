@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/10/13 17:58:32 by lomeniga         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:09:48 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,20 @@ int  parse_line()
 	return (0);
 }
 
-char *parse_scene(char *scene, size_t max)
+int parse_scene(int fd)
 {
-	size_t   index = 0;
+	struct		s_parse;
 
-	while (index < max && scene[index] == ' ')
-		index++;
-	parse_keys(scene, index);
-	while (index < max && scene[index] != ' ')
-		index++;
-	index++;
-	parse_vec();
-	return scene;
+	return (0);
 }
 
-void    read_scene(int fd)
+void    read_scene(struct s_buf *buf)
 {
 	char		buffer[65336];
 	ssize_t		size;
 
 	while ((size = read(fd, buffer, 65336) >0))
 	{
-		parse_scene(buffer, size);
 	}
 }
 
@@ -132,7 +124,7 @@ void    parse_opt(int ac, char *av[])
 		else
 		{
 			fd = open(av[index], O_RDONLY);
-			read_scene(fd);
+			parse_scene(fd);
 		}
 	}
 }
