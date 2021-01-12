@@ -1,16 +1,17 @@
 SRC		= main.c
 OBJ		= $(SRC:.c=.o)
-CFLAGS	= -Wall -Wextra -g -I.
+CFLAGS	= -fsanitize=address -Wall -Wextra -g -I.
 CC=clang
-LFLAGS	= -lmlx -lXext -lX11
-LDFLAGS	= -L minilibx-linux 
+LFLAGS	= -lmlx -lXext -lX11 
+LDFLAGS	= -L/opt/X11/lib -L minilibx-linux 
 NAME	= Minirt
+CFLAGS += -I minilibx-linux
 ifeq  '$(shell ar V 2>/dev/null | head -c 3)' 'GNU'
 	ARFLAGS	= Ur
 endif
 
 $(NAME) : $(OBJ) 
-	$(CC) $(OBJ) -lmlx -lXext -lX11
+	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LFLAGS)
 
 .PHONY	: re clean fclean all
 

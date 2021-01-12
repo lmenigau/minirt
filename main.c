@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/10/22 17:09:48 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/01/12 13:51:37 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int parse_scene(int fd)
 	return (0);
 }
 
-void    read_scene(struct s_buf *buf)
+void    read_scene(struct s_buf *buf, int fd)
 {
 	char		buffer[65336];
 	ssize_t		size;
@@ -133,6 +133,8 @@ int         main(int ac, char **av)
 {
 	parse_opt(ac, av);
 	void   *mlx = mlx_init();
+	if (!mlx)
+		return (0);
 	mlx_new_window(mlx, 800, 600, "");
 
 	mlx_loop(mlx);
