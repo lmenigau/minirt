@@ -6,12 +6,14 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/01/12 13:51:37 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:32:07 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "mlx.h"
 #include "minirt.h"
 
@@ -96,19 +98,25 @@ int  parse_line()
 
 int parse_scene(int fd)
 {
-	struct		s_parse;
+	struct	s_parse;
 
 	return (0);
 }
-
-void    read_scene(struct s_buf *buf, int fd)
+void	panic_with_error()
 {
-	char		buffer[65336];
+	perror(NULL);
+	exit(1);
+}
+
+void    read_scene(struct s_buf *buf)
+{
 	ssize_t		size;
 
-	while ((size = read(fd, buffer, 65336) >0))
-	{
-	}
+	size = read(buf->fd, buf, 4096);
+	if (size < 0) 
+		panic_with_error();
+	buf->len = size;
+	buf->index = 0;
 }
 
 void    parse_opt(int ac, char *av[])

@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2020/10/22 17:08:52 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/01/21 14:51:24 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct	s_scene
 struct s_buf
 {		
 	size_t	index;
+	size_t	len;
 	int		fd;
 	char	buf[4096];
 };
