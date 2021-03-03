@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/01/21 16:32:07 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/03/03 15:09:42 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,29 @@ void	panic_with_error()
 	exit(1);
 }
 
+char    next_char(int fd)
+{
+	static char		buffer[4096];
+	static int		index = 0;
+	static int		size = 0;
+
+	if (index == size)
+	{
+		ssize_t rsize = read(fd, buffer, 4096);
+		if (size < 0)
+			panic_with_error();
+		size = rsize;
+		index = 0;
+	}
+	return (buffer[index]);
+}
+
 void    read_scene(struct s_buf *buf)
 {
-	ssize_t		size;
+	ssize_t   size;
 
 	size = read(buf->fd, buf, 4096);
-	if (size < 0) 
+	if (size < 0)
 		panic_with_error();
 	buf->len = size;
 	buf->index = 0;
