@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/03/03 15:09:42 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:12:10 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int parse_tr()
 	return (0);
 }
 
-int	parse_object()
+int parse_object()
 {
 	return (0);
 }
@@ -98,11 +98,12 @@ int  parse_line()
 
 int parse_scene(int fd)
 {
-	struct	s_parse;
+	struct  s_parse;
 
 	return (0);
 }
-void	panic_with_error()
+
+void    panic_with_error()
 {
 	perror(NULL);
 	exit(1);
@@ -116,7 +117,7 @@ char    next_char(int fd)
 
 	if (index == size)
 	{
-		ssize_t rsize = read(fd, buffer, 4096);
+		ssize_t   rsize = read(fd, buffer, 4096);
 		if (size < 0)
 			panic_with_error();
 		size = rsize;
@@ -158,6 +159,7 @@ int         main(int ac, char **av)
 {
 	parse_opt(ac, av);
 	void   *mlx = mlx_init();
+
 	if (!mlx)
 		return (0);
 	mlx_new_window(mlx, 800, 600, "");

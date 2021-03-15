@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/01/21 14:51:24 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:11:29 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ struct s_buf
 
 struct	s_parse
 {
+	struct s_buf	buf;
 	struct s_scene	scene;
-	struct s_buf	buf;	
 };
 
 #endif
