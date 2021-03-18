@@ -56,6 +56,7 @@ struct	s_parse
 {
 	struct s_buf	buf;
 	struct s_scene	scene;
+	char	current;
 };
 
 #endif

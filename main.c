@@ -17,8 +17,8 @@
 #include "mlx.h"
 #include "minirt.h"
 
-t_options	g_options;
-char		*g_keys[] = {
+t_options g_options;
+char *g_keys[] = {
 	"R",
 	"c",
 	"sp",
@@ -33,15 +33,15 @@ char		*g_keys[] = {
 * }
 */
 
-static int      ft_isdigit(char c)
+static int ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-int             ft_atoi(char **fmt)
+int ft_atoi(char **fmt)
 {
-	int		nb;
-	char	*str;
+	int nb;
+	char *str;
 
 	str = *fmt;
 	nb = 0;
@@ -54,7 +54,7 @@ int             ft_atoi(char **fmt)
 	return (nb);
 }
 
-int     ft_strcmp(const char *s1, const char *s2)
+int ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{
@@ -64,9 +64,8 @@ int     ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void   parse_keys(char *scene, size_t index)
+void parse_keys(char *scene, size_t index)
 {
-
 }
 
 int parse_vec(void)
@@ -75,9 +74,9 @@ int parse_vec(void)
 	return (0);
 }
 
-int  parse_res()
+int parse_res(struct s_parse *parse)
 {
-
+	parse->current = next_char(&parse->buf);
 	return (0);
 }
 
@@ -91,44 +90,43 @@ int parse_object()
 	return (0);
 }
 
-int  parse_line()
+int parse_line()
 {
 	return (0);
 }
 
-int parse_scene(int fd)
-{
-	struct  s_parse;
-
-	return (0);
-}
-
-void    panic_with_error()
+void panic_with_error()
 {
 	perror(NULL);
 	exit(1);
 }
-
-char    next_char(int fd)
+char next_char(struct s_buf *buf)
 {
-	static char		buffer[4096];
-	static int		index = 0;
-	static int		size = 0;
-
-	if (index == size)
+	if (buf->index == buf->len)
 	{
-		ssize_t   rsize = read(fd, buffer, 4096);
-		if (size < 0)
+		ssize_t rsize = read(buf->fd, buf->buf, 4096);
+		if (buf->len < 0)
 			panic_with_error();
-		size = rsize;
-		index = 0;
+		buf->len = rsize;
+		buf->index = 0;
 	}
-	return (buffer[index]);
+	return (buf->buf[buf->index]);
 }
 
-void    read_scene(struct s_buf *buf)
+int parse_scene(int fd)
 {
-	ssize_t   size;
+	struct s_parse parse;
+
+	parse.buf.fd = 1;
+	parse.current = next_char(&parse.buf);
+	if (parse.current == 'R')
+		parse_res(&parse);
+	return (0);
+}
+
+void read_scene(struct s_buf *buf)
+{
+	ssize_t size;
 
 	size = read(buf->fd, buf, 4096);
 	if (size < 0)
@@ -137,10 +135,10 @@ void    read_scene(struct s_buf *buf)
 	buf->index = 0;
 }
 
-void    parse_opt(int ac, char *av[])
+void parse_opt(int ac, char *av[])
 {
-	int		index;
-	int		fd;
+	int index;
+	int fd;
 
 	index = 1;
 	while (index < 3 && index < ac)
@@ -155,10 +153,10 @@ void    parse_opt(int ac, char *av[])
 	}
 }
 
-int         main(int ac, char **av)
+int main(int ac, char **av)
 {
 	parse_opt(ac, av);
-	void   *mlx = mlx_init();
+	void *mlx = mlx_init();
 
 	if (!mlx)
 		return (0);
