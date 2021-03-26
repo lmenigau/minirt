@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/03/15 14:12:10 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/03/26 12:53:26 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,6 @@ int parse_vec(void)
 	return (0);
 }
 
-int parse_res(struct s_parse *parse)
-{
-	parse->current = next_char(&parse->buf);
-	return (0);
-}
 
 int parse_tr()
 {
@@ -100,6 +95,7 @@ void panic_with_error()
 	perror(NULL);
 	exit(1);
 }
+
 char next_char(struct s_buf *buf)
 {
 	if (buf->index == buf->len)
@@ -111,6 +107,17 @@ char next_char(struct s_buf *buf)
 		buf->index = 0;
 	}
 	return (buf->buf[buf->index]);
+}
+
+_Bool next_token(struct s_buf *buf)
+{
+
+}
+
+int parse_res(struct s_parse *parse)
+{
+	parse->current = next_char(&parse->buf);
+	return (0);
 }
 
 int parse_scene(int fd)
