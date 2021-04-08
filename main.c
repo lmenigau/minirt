@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/03/26 12:53:26 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:15:21 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,44 +17,46 @@
 #include "mlx.h"
 #include "minirt.h"
 
-t_options g_options;
-char *g_keys[] = {
-	"R",
-	"c",
-	"sp",
-	"tr",
-};
-/*
-* char		*g_keyfuncs[] = {
-*  parse_reso,
-*  parse_cam,
-*  parse_sphere,
-*  parse_triangle;
-* }
-*/
+void	panic_with_error(char *str)
+{
+	perror(str);
+	exit(1);
+}
 
-static int ft_isdigit(char c)
+char	next_char(struct s_buf *buf)
+{
+	if (buf->index == buf->len)
+	{
+		ssize_t (rsize) = read(buf->fd, buf->buf, 4096);
+		if (buf->len < 0)
+			panic_with_error("Error\n");
+		buf->len = rsize;
+		buf->index = 0;
+	}
+	return (buf->buf[buf->index++]);
+}
+
+static int	ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-int ft_atoi(char **fmt)
+int	parse_num(struct s_parse *parse)
 {
-	int nb;
-	char *str;
+	int		nb;
 
-	str = *fmt;
 	nb = 0;
-	while (*str && ft_isdigit(*str))
+	if (!ft_isdigit(parse->current))
+		panic_with_error("Error\n");
+	while (ft_isdigit(parse->current))
 	{
-		nb = nb * 10 + (*str - '0');
-		str++;
+		nb = nb * 10 + (parse->current - '0');
+		parse->current = next_char(&parse->buf);
 	}
-	*fmt = str - 1;
 	return (nb);
 }
 
-int ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{
@@ -64,94 +66,72 @@ int ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void parse_keys(char *scene, size_t index)
-{
-}
-
-int parse_vec(void)
-{
-
-	return (0);
-}
-
-
-int parse_tr()
+int	parse_vec(void)
 {
 	return (0);
 }
 
-int parse_object()
+int	parse_tr(void)
 {
 	return (0);
 }
 
-int parse_line()
+int	parse_object(void)
 {
 	return (0);
 }
 
-void panic_with_error()
+int	parse_line(void)
 {
-	perror(NULL);
-	exit(1);
+	return (0);
 }
 
-char next_char(struct s_buf *buf)
+void	next_token(struct s_parse *parse)
 {
-	if (buf->index == buf->len)
+	while ((parse->current && parse->current == ' ') || parse->current == '\t')
 	{
-		ssize_t rsize = read(buf->fd, buf->buf, 4096);
-		if (buf->len < 0)
-			panic_with_error();
-		buf->len = rsize;
-		buf->index = 0;
+		parse->current = next_char(&parse->buf);
 	}
-	return (buf->buf[buf->index]);
 }
 
-_Bool next_token(struct s_buf *buf)
+int	parse_res(struct s_parse *parse)
 {
-
-}
-
-int parse_res(struct s_parse *parse)
-{
-	parse->current = next_char(&parse->buf);
+	if (!parse->scene.isreso)
+	{
+		parse->scene.reso.x = parse_num(parse);
+		parse->scene.reso.y = parse_num(parse);
+		parse->scene.isreso = 1;
+	}
+	else
+	{
+	}
 	return (0);
 }
 
-int parse_scene(int fd)
+int	parse_scene(int fd)
 {
-	struct s_parse parse;
-
-	parse.buf.fd = 1;
+	struct s_parse (parse) = {};
+	parse.buf.fd = fd;
 	parse.current = next_char(&parse.buf);
 	if (parse.current == 'R')
 		parse_res(&parse);
+	else if (parse.current == 'A')
+	{
+	}
 	return (0);
 }
 
-void read_scene(struct s_buf *buf)
+void	parse_opt(int ac, char *av[])
 {
-	ssize_t size;
-
-	size = read(buf->fd, buf, 4096);
-	if (size < 0)
-		panic_with_error();
-	buf->len = size;
-	buf->index = 0;
-}
-
-void parse_opt(int ac, char *av[])
-{
-	int index;
-	int fd;
+	struct s_options	options;
+	int					index;
+	int					fd;
 
 	index = 1;
 	while (index < 3 && index < ac)
 	{
 		if (av[index][0] == '-' && !ft_strcmp(av[index], "--save"))
-			g_options.save = 1;
+			options.save = 1;
 		else
 		{
 			fd = open(av[index], O_RDONLY);
@@ -160,14 +140,12 @@ void parse_opt(int ac, char *av[])
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	parse_opt(ac, av);
-	void *mlx = mlx_init();
-
+	void *(mlx) = mlx_init();
 	if (!mlx)
 		return (0);
 	mlx_new_window(mlx, 800, 600, "");
-
 	mlx_loop(mlx);
 }

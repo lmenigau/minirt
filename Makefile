@@ -1,6 +1,6 @@
 SRC		= main.c
 OBJ		= $(SRC:.c=.o)
-CFLAGS	= -fsanitize=address -Wall -Wextra -g -I.
+CFLAGS	= #-fsanitize=address -Wall -Wextra -g -I.
 CC=clang
 LFLAGS	= -lmlx -lXext -lX11 
 LDFLAGS	= -L/Users/lomeniga/mp/lib -lX11 -lXext -L minilibx-linux 
