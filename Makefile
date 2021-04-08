@@ -11,7 +11,7 @@ ifeq  '$(shell ar V 2>/dev/null | head -c 3)' 'GNU'
 endif
 
 $(NAME) : $(OBJ) 
-	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LFLAGS)
+	$(CC) $(LDFLAGS) $(LFLAGS) $(CFLAGS) $(OBJ) -o $(NAME) 
 
 .PHONY	: re clean fclean all
 
