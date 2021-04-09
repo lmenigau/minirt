@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   func.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/09 13:04:28 by lomeniga         ###   ########.fr       */
+/*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
+/*   Updated: 2021/04/09 16:07:02 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H 
+#ifndef FUNC_H
+# define FUNC_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <stddef.h>
-# include <fcntl.h>
-# include <unistd.h>
+# include "minirt.h"
 
-# include "mlx.h"
-# include "struct.h"
-# include "func.h"
+int		parse_scene(int fd);
+void	panic_with_error(char *str);
 
 #endif
