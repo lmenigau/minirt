@@ -6,13 +6,14 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/09 13:04:28 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:50:15 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H 
 
+# include <sys/errno.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>

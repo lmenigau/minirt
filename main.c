@@ -6,15 +6,28 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/09 16:07:08 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:56:38 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	print(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	write(1, str, len);
+}
+
 void	panic_with_error(char *str)
 {
-	perror(str);
+	print("Error\n");
+	print(str);
+	if (errno)
+		perror(str);
 	exit(1);
 }
 
@@ -42,8 +55,11 @@ void	parse_opt(int ac, char *av[])
 		else
 		{
 			fd = open(av[index], O_RDONLY);
+			if (fd < 0)
+				panic_with_error("");
 			parse_scene(fd);
 		}
+		index++;
 	}
 }
 
