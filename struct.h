@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/12 17:14:53 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:55:53 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ typedef struct s_color
 	t_uchar	g;
 	t_uchar	b;
 }				t_color;
+
+struct	s_object
+{
+	
+}
 
 struct	s_scene
 {

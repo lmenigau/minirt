@@ -33,25 +33,28 @@ void	next_token(struct s_parse *parse)
 
 float	parse_num(struct s_parse *parse)
 {
-	float	 	nb;
-	float		pow;
+	double	 	nb;
+	double		pow;
 
 	nb = 0;
-	pow = 0.1;
+	pow = 1;
 	next_token(parse);
-	if (!ft_isdigit(parse->current))
-		panic_with_error("expecting digit");
+	if (!ft_isdigit(parse->current) && parse->current != '-')
+		panic_with_error("expecting number");
+	if (parse->current == '-')
+		pow = -1;
+	if (parse->current == '-')
+		parse->current = next_char(&parse->buf);
 	while (ft_isdigit(parse->current))
 	{
-		nb = nb * 10 + (parse->current - '0');
+		nb = nb * 10 + pow * (parse->current - '0');
 		parse->current = next_char(&parse->buf);
 	}
 	if (parse->current == '.')
 		parse->current = next_char(&parse->buf);
 	while (ft_isdigit(parse->current))
 	{
-		nb += pow * (parse->current - '0');
-		pow *= 0.1;
+		nb += (pow *= .1) * (parse->current - '0');
 		parse->current = next_char(&parse->buf);
 	}
 	return (nb);
@@ -65,14 +68,15 @@ void	eat(struct s_parse *parse, char c)
 		panic_with_error("unexpected token");
 }
 
-float parse_float(struct s_parse *parse)
+float	parse_float(struct s_parse *parse)
 {
 	return (parse_num(parse));
 }
 
-t_vec3		parse_vec(struct s_parse *parse)
+t_vec3	parse_vec(struct s_parse *parse)
 {
 	t_vec3		vec;
+
 	vec.x = parse_float(parse);
 	eat(parse, ',');
 	vec.y = parse_float(parse);
@@ -83,6 +87,7 @@ t_vec3		parse_vec(struct s_parse *parse)
 
 void	parse_tr(void)
 {
+
 }
 
 void	parse_res(struct s_parse *parse)
@@ -98,15 +103,20 @@ void	parse_res(struct s_parse *parse)
 		panic_with_error("multiple resolution");
 }
 
+
+void print_vec(t_vec3 vec)
+{
+	printf("(%f, %f, %f)", vec.x, vec.y, vec.z);
+}
 void	parse_ambiant(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
-
 	if (!parse->scene.isambiant)
 	{
 		parse->scene.ambiant_r = parse_float(parse);
-		parse->scene.ambiant = parse_vec(parse); 
+		parse->scene.ambiant = parse_vec(parse);
 		parse->scene.isambiant = 1;
+		print_vec(parse->scene.ambiant);
 	}
 	else
 		panic_with_error("multiple ambiant");
@@ -114,6 +124,7 @@ void	parse_ambiant(struct s_parse *parse)
 
 void	parse_cyl(struct s_parse *parse)
 {
+	parse_vec(parse);
 }
 
 void 	parse_camcyl(struct s_parse *parse)
