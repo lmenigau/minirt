@@ -87,7 +87,6 @@ t_vec3	parse_vec(struct s_parse *parse)
 
 void	parse_tr(void)
 {
-
 }
 
 void	parse_res(struct s_parse *parse)
@@ -103,8 +102,7 @@ void	parse_res(struct s_parse *parse)
 		panic_with_error("multiple resolution");
 }
 
-
-void print_vec(t_vec3 vec)
+void	print_vec(t_vec3 vec)
 {
 	printf("(%f, %f, %f)", vec.x, vec.y, vec.z);
 }
@@ -127,11 +125,36 @@ void	parse_cyl(struct s_parse *parse)
 	parse_vec(parse);
 }
 
-void 	parse_camcyl(struct s_parse *parse)
+void	parse_light(struct s_parse *parse)
 {
+	t_store		*store;
+
+	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
 	if (parse->current == 'y')
 		return (parse_cyl(parse));
+	if (store->nlights >= 1000)
+		panic_with_error("Too many lights");
+	store->lights[store->nlights].coord = parse_vec(parse);
+	store->lights[store->nlights].color = parse_vec(parse);
+	store->lights[store->nlights].bright = parse_num(parse);
+	store->nlights++;
+}
+
+void 	parse_camcyl(struct s_parse *parse)
+{
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	if (parse->current == 'y')
+		return (parse_cyl(parse));
+	if (store->ncams >= 1000)
+		panic_with_error("Too many cameras");
+	store->cams[store->ncams].coord = parse_vec(parse);
+	store->cams[store->ncams].ori = parse_vec(parse);
+	store->cams[store->ncams].fov = parse_num(parse);
+	store->ncams++;
 }
 
 void	parse_object(struct s_parse *parse)
@@ -159,6 +182,7 @@ void	parse_line(struct s_parse *parse)
 void	parse_scene(int fd)
 {
 	struct s_parse (parse) = {};
+	init_scene(&parse.scene);
 	parse.buf.fd = fd;
 	parse_line(&parse);
 	while (parse.buf.len > 0)

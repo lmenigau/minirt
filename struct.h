@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/13 14:55:53 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:05:32 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,35 @@ typedef struct s_color
 	t_uchar	b;
 }				t_color;
 
+typedef struct s_light
+{
+	t_vec3	coord;
+	t_vec3	color;
+	float	bright;
+}				t_light;
+
+typedef struct s_cam
+{
+	t_vec3	coord;
+	t_vec3	ori;
+	float	fov;
+}				t_cam;
+
 struct	s_object
 {
-	
-}
+	t_vec3	coord;
+	t_vec3	ori;
+	t_vec3	color;
+	float	scale;
+};
+
+typedef struct s_store
+{
+	t_cam	*cams;
+	int		ncams;
+	t_light	*lights;
+	int		nlights;
+}				t_store;
 
 struct	s_scene
 {
@@ -52,6 +77,7 @@ struct	s_scene
 	t_ivec	reso;
 	float	ambiant_r;
 	t_vec3	ambiant;
+	t_store st;
 };
 
 struct s_buf
