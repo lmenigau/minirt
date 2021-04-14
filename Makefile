@@ -1,4 +1,4 @@
-SRC		= main.c parsing.c storage.c
+SRC		= main.c parsing.c storage.c down.c
 OBJ		= $(SRC:.c=.o)
 CFLAGS	= -fsanitize=address -Wall -Wextra -g
 CC=clang
