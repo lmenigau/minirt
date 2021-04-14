@@ -12,10 +12,6 @@ t_vec3	parse_vec(struct s_parse *parse)
 	return (vec);
 }
 
-void	parse_tr(void)
-{
-}
-
 void	parse_res(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
@@ -47,9 +43,86 @@ void	parse_ambiant(struct s_parse *parse)
 		panic_with_error("multiple ambiant");
 }
 
+void	parse_tri(struct s_parse *parse)
+{
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	eat(parse, 'r');
+	if (store->ntris >= 1000)
+		panic_with_error("Too many triangles");
+	store->tris[store->ntris].p1 = parse_vec(parse);
+	store->tris[store->ntris].p2 = parse_vec(parse);
+	store->tris[store->ntris].p3 = parse_vec(parse);
+	store->tris[store->ntris].color = parse_vec(parse);
+	store->ntris++;
+	parse_vec(parse);
+}
+
 void	parse_cyl(struct s_parse *parse)
 {
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	if (store->ncyls >= 1000)
+		panic_with_error("Too many cylinders");
+	store->cyls[store->ncyls].coord = parse_vec(parse);
+	store->cyls[store->ncyls].ori = parse_vec(parse);
+	store->cyls[store->ncyls].diam = parse_num(parse);
+	store->cyls[store->ncyls].height = parse_num(parse);
+	store->cyls[store->ncyls].color = parse_vec(parse);
+	store->ncyls++;
 	parse_vec(parse);
+}
+
+void	parse_box(struct s_parse *parse)
+{
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	eat(parse, 'q');
+	if (store->nboxs >= 1000)
+		panic_with_error("Too many boxes");
+	store->boxs[store->nboxs].coord = parse_vec(parse);
+	store->boxs[store->nboxs].ori = parse_vec(parse);
+	store->boxs[store->nboxs].size = parse_num(parse);
+	store->boxs[store->nboxs].color = parse_vec(parse);
+	store->nboxs++;
+}
+
+void	parse_plane(struct s_parse *parse)
+{
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	eat(parse, 'l');
+	if (store->nplanes >= 1000)
+		panic_with_error("Too many planes");
+	store->planes[store->nplanes].coord = parse_vec(parse);
+	store->planes[store->nplanes].ori = parse_vec(parse);
+	store->planes[store->nplanes].color = parse_vec(parse);
+	store->nplanes++;
+}
+
+void	parse_spherebox(struct s_parse *parse)
+{
+	t_store		*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	if (parse->current == 'q')
+		return (parse_box(parse));
+	eat(parse, 'p');
+	if (store->nspheres >= 1000)
+		panic_with_error("Too many spheres");
+	store->spheres[store->nspheres].coord = parse_vec(parse);
+	store->spheres[store->nspheres].size = parse_num(parse);
+	store->spheres[store->nspheres].color = parse_vec(parse);
+	store->nspheres++;
 }
 
 void	parse_light(struct s_parse *parse)
@@ -92,6 +165,14 @@ void	parse_object(struct s_parse *parse)
 		parse_ambiant(parse);
 	else if (parse->current == 'c')
 		parse_camcyl(parse);
+	if (parse->current == 'l')
+		parse_light(parse);
+	else if (parse->current == 's')
+		parse_spherebox(parse);
+	if (parse->current == 'p')
+		parse_plane(parse);
+	if (parse->current == 't')
+		parse_tri(parse);
 	else
 	{
 		panic_with_error("undefined object");

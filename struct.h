@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/13 18:05:32 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:38:53 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,45 @@ typedef struct s_light
 	float	bright;
 }				t_light;
 
+typedef struct s_sphere
+{
+	t_vec3	coord;
+	t_vec3	color;
+	float	size;
+}				t_sphere;
+
+typedef struct s_plane
+{
+	t_vec3	coord;
+	t_vec3	ori;
+	t_vec3	color;
+}				t_plane;
+
+typedef struct s_tri
+{
+	t_vec3	p1;
+	t_vec3	p2;
+	t_vec3	p3;
+	t_vec3	color;
+}				t_tri;
+
+typedef struct s_box
+{
+	t_vec3	coord;
+	t_vec3	ori;
+	t_vec3	color;
+	float	size;
+}				t_box;
+
+typedef struct s_cyl
+{
+	t_vec3	coord;
+	t_vec3	ori;
+	t_vec3	color;
+	float	diam;
+	float	height;
+}				t_cyl;
+
 typedef struct s_cam
 {
 	t_vec3	coord;
@@ -64,10 +103,20 @@ struct	s_object
 
 typedef struct s_store
 {
-	t_cam	*cams;
-	int		ncams;
-	t_light	*lights;
-	int		nlights;
+	t_cam		*cams;
+	int			ncams;
+	t_light		*lights;
+	int			nlights;
+	t_sphere	*spheres;
+	int			nspheres;
+	t_plane		*planes;
+	int			nplanes;
+	t_box		*boxs;
+	int			nboxs;
+	t_cyl		*cyls;
+	int			ncyls;
+	t_tri		*tris;
+	int			ntris;
 }				t_store;
 
 struct	s_scene
@@ -77,7 +126,7 @@ struct	s_scene
 	t_ivec	reso;
 	float	ambiant_r;
 	t_vec3	ambiant;
-	t_store st;
+	t_store	st;
 };
 
 struct s_buf
