@@ -165,13 +165,13 @@ void	parse_object(struct s_parse *parse)
 		parse_ambiant(parse);
 	else if (parse->current == 'c')
 		parse_camcyl(parse);
-	if (parse->current == 'l')
+	else if (parse->current == 'l')
 		parse_light(parse);
 	else if (parse->current == 's')
 		parse_spherebox(parse);
-	if (parse->current == 'p')
+	else if (parse->current == 'p')
 		parse_plane(parse);
-	if (parse->current == 't')
+	else if (parse->current == 't')
 		parse_tri(parse);
 	else
 	{
