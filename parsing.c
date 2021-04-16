@@ -74,7 +74,6 @@ void	parse_cyl(struct s_parse *parse)
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_vec(parse);
 	store->ncyls++;
-	parse_vec(parse);
 }
 
 void	parse_box(struct s_parse *parse)
@@ -83,7 +82,6 @@ void	parse_box(struct s_parse *parse)
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
-	eat(parse, 'q');
 	if (store->nboxs >= 1000)
 		panic_with_error("Too many boxes");
 	store->boxs[store->nboxs].coord = parse_vec(parse);

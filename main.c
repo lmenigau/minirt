@@ -6,11 +6,13 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/12 13:56:38 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/16 11:55:08 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+#include <execinfo.h>
 
 void	print(const char *str)
 {
@@ -22,12 +24,16 @@ void	print(const char *str)
 	write(1, str, len);
 }
 
-void	panic_with_error(char *str)
+void	panic_with_error(char *msg)
 {
+	void	*array[10];
+	backtrace(array, 10);
+	backtrace_symbols_fd(array, 10, 1);
 	print("Error\n");
-	print(str);
+
+	print(msg);
 	if (errno)
-		perror(str);
+		perror(msg);
 	exit(1);
 }
 
@@ -68,7 +74,7 @@ int	main(int ac, char **av)
 	parse_opt(ac, av);
 	void *(mlx) = mlx_init();
 	if (!mlx)
-		return (0);
+		panic_with_error("connection to the X server failed\n");
 	mlx_new_window(mlx, 800, 600, "");
 	mlx_loop(mlx);
 }
