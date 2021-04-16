@@ -170,10 +170,10 @@ void	parse_object(struct s_parse *parse)
 		parse_plane(parse);
 	else if (parse->current == 't')
 		parse_tri(parse);
+	else if (parse->current == '\n')
+		;
 	else
-	{
 		panic_with_error("undefined object");
-	}
 }
 
 void	parse_line(struct s_parse *parse)
