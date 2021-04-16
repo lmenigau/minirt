@@ -57,7 +57,6 @@ void	parse_tri(struct s_parse *parse)
 	store->tris[store->ntris].p3 = parse_vec(parse);
 	store->tris[store->ntris].color = parse_vec(parse);
 	store->ntris++;
-	parse_vec(parse);
 }
 
 void	parse_cyl(struct s_parse *parse)
