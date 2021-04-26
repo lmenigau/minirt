@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/16 15:18:47 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:14:42 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void	parse_opt(int ac, char *av[])
+void	parse_opt(t_global *global, int ac, char *av[])
 {
-	struct s_options	options;
 	int					index;
 	int					fd;
 
@@ -56,13 +55,13 @@ void	parse_opt(int ac, char *av[])
 	while (index < 3 && index < ac)
 	{
 		if (av[index][0] == '-' && !ft_strcmp(av[index], "--save"))
-			options.save = 1;
+			global->options.save = 1;
 		else
 		{
 			fd = open(av[index], O_RDONLY);
 			if (fd < 0)
 				panic_with_error("");
-			parse_scene(fd);
+			parse_scene(global, fd);
 		}
 		index++;
 	}
@@ -70,7 +69,9 @@ void	parse_opt(int ac, char *av[])
 
 int	main(int ac, char **av)
 {
-	parse_opt(ac, av);
+	t_global	global;
+
+	parse_opt(&global, ac, av);
 	void *(mlx) = mlx_init();
 	if (!mlx)
 		panic_with_error("connection to the X server failed\n");

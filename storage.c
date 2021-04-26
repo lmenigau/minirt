@@ -24,3 +24,10 @@ void	init_scene(struct s_scene *scene)
 	scene->st.planes = planes;
 	init_scene_cont(scene);
 }
+
+t_global	*init_global(void)
+{
+	static t_global	global;
+
+	return (&global);
+}

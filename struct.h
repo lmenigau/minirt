@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/14 14:38:53 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:28:54 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct s_store
 	int			ntris;
 }				t_store;
 
-struct	s_scene
+typedef struct s_scene
 {
 	_Bool	isreso;
 	_Bool	isambiant;
@@ -127,7 +127,7 @@ struct	s_scene
 	float	ambiant_r;
 	t_vec3	ambiant;
 	t_store	st;
-};
+}				t_scene;
 
 struct s_buf
 {		
@@ -137,11 +137,17 @@ struct s_buf
 	char	buf[4096];
 };
 
-struct	s_parse
+typedef struct s_parse
 {
 	struct s_buf	buf;
 	struct s_scene	scene;
 	char			current;
-};
+}				t_parse;
+
+typedef struct s_global
+{
+	t_options	options;
+	t_parse		parse;
+}				t_global;
 
 #endif

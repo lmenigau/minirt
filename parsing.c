@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include "struct.h"
 
 t_vec3	parse_vec(struct s_parse *parse)
 {
@@ -184,14 +185,13 @@ void	parse_line(struct s_parse *parse)
 	eat(parse, '\n');
 }
 
-void	parse_scene(int fd)
+void	parse_scene(t_global *global, int fd)
 {
-	struct s_parse (parse) = {};
-	init_scene(&parse.scene);
-	parse.buf.fd = fd;
-	parse_line(&parse);
-	while (parse.buf.len > 0)
+	init_scene(&global->parse.scene);
+	global->parse.buf.fd = fd;
+	parse_line(&global->parse);
+	while (global->parse.buf.len > 0)
 	{
-		parse_line(&parse);
+		parse_line(&global->parse);
 	}
 }
