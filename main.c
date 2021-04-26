@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/26 17:14:42 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:53:29 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,10 @@ void	parse_opt(t_global *global, int ac, char *av[])
 
 int	main(int ac, char **av)
 {
-	t_global	global;
-
-	parse_opt(&global, ac, av);
+	parse_opt(init_global(), ac, av);
 	void *(mlx) = mlx_init();
 	if (!mlx)
 		panic_with_error("connection to the X server failed\n");
-	mlx_new_window(mlx, 800, 600, "");
+	mlx_new_window(mlx, init_global()->parse.scene.reso.x, init_global()->parse.scene.reso.y, "");
 	mlx_loop(mlx);
 }

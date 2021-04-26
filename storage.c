@@ -27,7 +27,7 @@ void	init_scene(struct s_scene *scene)
 
 t_global	*init_global(void)
 {
-	static t_global	global;
+	static t_global	global = {};
 
 	return (&global);
 }
