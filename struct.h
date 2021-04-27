@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/26 17:28:54 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:49:27 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_global
 {
 	t_options	options;
 	t_parse		parse;
+	int			cam;
 }				t_global;
 
 #endif
