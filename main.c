@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/27 14:56:19 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/27 16:19:39 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main(int ac, char **av)
 	t_global	*global;
 
 	global = init_global();
-	screen(global);
 	parse_opt(global, ac, av);
-	mlx_loop(global->mlx);
+	screen(global);
 }
