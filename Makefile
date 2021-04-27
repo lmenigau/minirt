@@ -1,4 +1,4 @@
-SRC		= main.c parsing.c storage.c down.c vec.c
+SRC		= main.c parsing.c storage.c down.c vec.c screen.c
 OBJ		= $(SRC:.c=.o)
 CFLAGS	= -g -Wall -Wextra
 LFLAGS	=  -lmlx -lXext -lX11

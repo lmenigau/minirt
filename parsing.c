@@ -26,10 +26,6 @@ void	parse_res(struct s_parse *parse)
 		panic_with_error("multiple resolution");
 }
 
-void	print_vec(t_vec3 vec)
-{
-	printf("(%f, %f, %f)", vec.x, vec.y, vec.z);
-}
 void	parse_ambiant(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
@@ -38,7 +34,6 @@ void	parse_ambiant(struct s_parse *parse)
 		parse->scene.ambiant_r = parse_num(parse);
 		parse->scene.ambiant = parse_vec(parse);
 		parse->scene.isambiant = 1;
-		print_vec(parse->scene.ambiant);
 	}
 	else
 		panic_with_error("multiple ambiant");

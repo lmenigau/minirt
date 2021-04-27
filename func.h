@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/27 14:16:40 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:13:00 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ t_vec3		cross(t_vec3 a, t_vec3 b);
 float		dot(t_vec3 v1, t_vec3 v2);
 t_vec3		norm(t_vec3 vec);
 float		len(t_vec3 vec);
+
+void		screen(t_global *global);
 #endif
