@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/27 15:13:00 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:16:13 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ t_vec3		norm(t_vec3 vec);
 float		len(t_vec3 vec);
 
 void		screen(t_global *global);
+t_color		render(t_global *global, t_ivec coord);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 09:18:42 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/27 16:19:39 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:16:19 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print(const char *str)
 void	panic_with_error(char *msg)
 {
 	void	*array[10];
+
 	backtrace(array, 10);
 	backtrace_symbols_fd(array, 10, 1);
 	print("Error\n");
