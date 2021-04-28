@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/28 13:19:24 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/28 17:46:21 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_vec3
 	float		y;
 	float		z;
 }				t_vec3;
+
+typedef struct s_mat
+{
+	t_vec3	f;
+	t_vec3	r;
+	t_vec3	u;
+}				t_mat;
 
 typedef struct s_color
 {
@@ -88,9 +95,11 @@ typedef struct s_cyl
 
 typedef struct s_cam
 {
+	t_mat	mat;
 	t_vec3	coord;
 	t_vec3	ori;
 	float	fov;
+	float	scale;
 }				t_cam;
 
 struct	s_object
@@ -153,6 +162,7 @@ typedef struct s_global
 	void			*win;
 	char			*screen;
 	int				sizeline;
+	float			ratio;
 	int				cam;
 }				t_global;
 

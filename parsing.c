@@ -1,3 +1,4 @@
+#include <math.h>
 #include "minirt.h"
 #include "struct.h"
 
@@ -137,6 +138,7 @@ void	parse_light(struct s_parse *parse)
 void 	parse_camcyl(struct s_parse *parse)
 {
 	t_store		*store;
+	t_cam		*cam;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -144,9 +146,14 @@ void 	parse_camcyl(struct s_parse *parse)
 		return (parse_cyl(parse));
 	if (store->ncams >= 1000)
 		panic_with_error("Too many cameras");
-	store->cams[store->ncams].coord = parse_vec(parse);
-	store->cams[store->ncams].ori = parse_vec(parse);
-	store->cams[store->ncams].fov = parse_num(parse);
+	cam = &store->cams[store->ncams];
+	cam->coord = parse_vec(parse);
+	cam->ori = parse_vec(parse);
+	cam->fov = parse_num(parse) * M_PI / 180;
+	cam->scale = tan(store->cams[store->ncams].fov * 0.5);
+	cam->mat.f = norm(cam->ori);
+	cam->mat.r = cross((t_vec3){0, 1, 0}, cam->mat.f);
+	cam->mat.u = cross(cam->mat.f, cam->mat.r);
 	store->ncams++;
 }
 

@@ -49,6 +49,7 @@ void	window(t_global *global)
 		panic_with_error("image fail\n");
 	global->screen = mlx_get_data_addr(global->img, &(int){0},
 			&global->sizeline, &(int){0});
+	global->ratio = reso->x / (float)reso->y;
 }
 
 void	screen(t_global *global)
