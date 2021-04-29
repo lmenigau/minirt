@@ -3,17 +3,25 @@
 
 float	len(t_vec3 vec)
 {
-	return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }
 
 t_vec3	norm(t_vec3 vec)
 {
-	return ((t_vec3){vec.x / len(vec), vec.y / len(vec), vec.z / len(vec)});
+	float	invsq;
+
+	invsq = 1 / len(vec);
+	return ((t_vec3){vec.x * invsq, vec.y * invsq, vec.z * invsq});
 }
 
 float	dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+t_vec3	sub(t_vec3 v1, t_vec3 v2)
+{
+	return ((t_vec3){v1.x - v2.x, v1.y - v2.y, v1.z - v2.z});
 }
 
 t_vec3	cross(t_vec3 a, t_vec3 b)

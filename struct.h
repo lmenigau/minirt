@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/28 17:46:21 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/29 15:59:59 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,24 @@ typedef struct s_ivec
 	int		y;
 }				t_ivec;
 
+typedef struct s_vec2
+{
+	float		x;
+	float		y;
+}				t_vec2;
+
 typedef struct s_vec3
 {
 	float		x;
 	float		y;
 	float		z;
 }				t_vec3;
+
+typedef struct s_ray
+{
+	t_vec3	dir;
+	t_vec3	ori;
+}				t_ray;
 
 typedef struct s_mat
 {
