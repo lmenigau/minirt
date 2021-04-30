@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/30 14:24:55 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:18:19 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ float		len(t_vec3 vec);
 
 void		screen(t_global *global);
 t_color		render(t_global *global, t_ivec coord);
+t_vec3		light(t_scene *scene, t_hit hit);
 #endif
