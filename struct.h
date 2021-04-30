@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/29 15:59:59 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/04/30 14:55:12 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct s_color
 	t_uchar	b;
 }				t_color;
 
+typedef struct s_hit
+{
+	t_vec3		p;
+	t_vec3		n;
+	t_vec3		c;
+
+}				t_hit;
 typedef struct s_light
 {
 	t_vec3	coord;
