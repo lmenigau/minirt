@@ -17,14 +17,6 @@ t_vec3	camray(t_global *global, t_ivec coord)
 	return (dir);
 }
 
-void	swap(float *a, float *b)
-{
-	float	c;
-
-	c = *a;
-	*a = *b;
-	*b = c;
-}
 
 float	sphere_solver(t_sphere sp, t_ray ray)
 {
