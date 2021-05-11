@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/30 18:18:19 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/05/11 18:17:16 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		parse_camcyl(struct s_parse *parse);
 t_vec3		cross(t_vec3 a, t_vec3 b);
 float		dot(t_vec3 v1, t_vec3 v2);
 t_vec3		mul(t_vec3 vec, float b);
+t_vec3		vmul(t_vec3 v1, t_vec3 v2);
 t_vec3		add(t_vec3 v1, t_vec3 v2);
 t_vec3		sub(t_vec3 v1, t_vec3 v2);
 t_vec3		norm(t_vec3 vec);
