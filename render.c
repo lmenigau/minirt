@@ -77,5 +77,5 @@ t_color	render(t_global *global, t_ivec coord)
 	ray.dir = camray(global, coord);
 	ray.ori = global->parse.scene.st.cams[global->cam].ori;
 	col = intersect(global, ray);
-	return ((t_color){col.x, col.y, col.z});
+	return ((t_color){col.x * 255, col.y * 255, col.z * 255});
 }
