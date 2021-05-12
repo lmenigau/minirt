@@ -1,26 +1,28 @@
 #include "minirt.h"
 
-t_vec3	col(t_scene *scene, t_hit hit, int i)
+t_vec3	col(t_light *light, t_hit hit)
 {
+	t_vec3 lp;
 	t_vec3 t;
+	float lamb;
 
-	t = norm(sub(scene->st.lights[i].coord, hit.p));
-	t = mul(scene->st.lights[i].color, dot(hit.n, t));
-	t = vmul(hit.c, t);
-
+	lp = sub(light->coord, hit.p);
+	lamb = dot(hit.n, norm(lp));
+	t = vmul(mul(light->color, light->bright), hit.c);
+	t = mul(t, fmaxf(0, lamb) * 1 / len(lp) * len(lp));
 	return (t);
 }
 
-t_vec3 light(t_scene *scene, t_hit hit)
+t_vec3		light(t_scene *scene, t_hit hit)
 {
 	int		i;
 	t_vec3	c;
 
-	c = mul(scene->ambiant, scene->ambiant_r);
+	c = vmul(scene->ambiant, hit.c);
 	i = 0;
 	while (i < scene->st.nlights)
 	{
-		add(c, col(scene, hit, i));
+		c = add(c, col(&scene->st.lights[i], hit));
 		i++;
 	}
 	return (c);

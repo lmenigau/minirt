@@ -1,6 +1,6 @@
 SRC		= main.c parsing.c storage.c down.c vec.c screen.c render.c light.c
 OBJ		= $(SRC:.c=.o)
-CFLAGS	= -g -Wall -Wextra
+CFLAGS	= -g -Wall -Wextra -fsanitize=address
 LFLAGS	=  -lmlx -lXext -lX11
 LDFLAGS	= -L/Users/lomeniga/mp/lib -lX11 -lXext -L minilibx-linux 
 NAME	= Minirt

@@ -6,7 +6,7 @@
 /*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 07:25:38 by lomeniga          #+#    #+#             */
-/*   Updated: 2021/04/28 14:44:47 by lomeniga         ###   ########.fr       */
+/*   Updated: 2021/05/12 13:44:18 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <math.h>
 
 # include "mlx.h"
 # include "struct.h"

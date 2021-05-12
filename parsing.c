@@ -54,7 +54,7 @@ void	parse_ambiant(struct s_parse *parse)
 	if (!parse->scene.isambiant)
 	{
 		parse->scene.ambiant_r = parse_num(parse);
-		parse->scene.ambiant = parse_color(parse);
+		parse->scene.ambiant = mul(parse_color(parse), parse->scene.ambiant_r);
 		parse->scene.isambiant = 1;
 	}
 	else
