@@ -170,8 +170,8 @@ void 	parse_camcyl(struct s_parse *parse)
 	cam = &store->cams[store->ncams];
 	cam->coord = parse_vec(parse);
 	cam->ori = parse_vec(parse);
-	cam->fov = parse_num(parse) * M_PI / 180;
-	cam->scale = tan(store->cams[store->ncams].fov * 0.5);
+	cam->fov = parse_num(parse) / 2 * M_PI / 180;
+	cam->scale = tan(cam->fov);
 	cam->mat.f = norm(cam->ori);
 	cam->mat.r = cross((t_vec3){0, 1, 0}, cam->mat.f);
 	cam->mat.u = cross(cam->mat.f, cam->mat.r);

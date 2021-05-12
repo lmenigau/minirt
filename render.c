@@ -30,9 +30,9 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 		dot(oc, oc) - sp.size * sp.size};
 	delta = v.y * v.y - 4 * v.x * v.z;
 	if (delta >= 0)
-	{
-		inter.x = -dot(ray.dir, oc) + sqrtf(delta);
-		inter.y = -dot(ray.dir, oc) - sqrtf(delta);
+	{	
+		inter.x = (- v.y + sqrtf(delta)) / (2 * v.x);
+		inter.y = (- v.y - sqrtf(delta)) / (2 * v.x);
 		if (inter.x < 0 && inter.y > inter.x)
 			return (inter.y);
 		else

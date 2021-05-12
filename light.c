@@ -9,7 +9,8 @@ t_vec3	col(t_light *light, t_hit hit)
 	lp = sub(light->coord, hit.p);
 	lamb = dot(hit.n, norm(lp));
 	t = vmul(mul(light->color, light->bright), hit.c);
-	t = mul(t, fmaxf(0, lamb) * 1 / len(lp) * len(lp));
+	t = mul(t, fmaxf(0, lamb) / len(lp) * len(lp));
+	printf("%f\n", lamb);
 	return (t);
 }
 
