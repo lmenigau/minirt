@@ -57,6 +57,7 @@ void	screen(t_global *global)
 	t_ivec		*reso;
 
 	reso = &global->parse.scene.reso;
+    *reso = (t_ivec){1920, 1080};
 	if (!global->options.save)
 	{
 		global->mlx = mlx_init();

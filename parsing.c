@@ -1,10 +1,10 @@
-#include <math.h>
 #include "minirt.h"
 #include "struct.h"
+#include <math.h>
 
 t_vec3	parse_vec(struct s_parse *parse)
 {
-	t_vec3		vec;
+	t_vec3	vec;
 
 	vec.x = parse_num(parse);
 	eat(parse, ',');
@@ -17,13 +17,11 @@ t_vec3	parse_vec(struct s_parse *parse)
 void	parse_res(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
-	if (!parse->scene.isreso)
-	{
+	if (!parse->scene.isreso) {
 		parse->scene.reso.x = parse_num(parse);
 		parse->scene.reso.y = parse_num(parse);
 		parse->scene.isreso = 1;
-	}
-	else
+	} else
 		panic_with_error("multiple resolution");
 }
 
@@ -63,7 +61,7 @@ void	parse_ambiant(struct s_parse *parse)
 
 void	parse_tri(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -79,7 +77,7 @@ void	parse_tri(struct s_parse *parse)
 
 void	parse_cyl(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -95,7 +93,7 @@ void	parse_cyl(struct s_parse *parse)
 
 void	parse_box(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -110,7 +108,7 @@ void	parse_box(struct s_parse *parse)
 
 void	parse_plane(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -125,7 +123,7 @@ void	parse_plane(struct s_parse *parse)
 
 void	parse_spherebox(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -140,9 +138,9 @@ void	parse_spherebox(struct s_parse *parse)
 	store->nspheres++;
 }
 
-void	parse_light(struct s_parse *parse)
+void	 parse_light(struct s_parse *parse)
 {
-	t_store		*store;
+	t_store	*store;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -151,15 +149,36 @@ void	parse_light(struct s_parse *parse)
 	if (store->nlights >= 1000)
 		panic_with_error("Too many lights");
 	store->lights[store->nlights].coord = parse_vec(parse);
-	store->lights[store->nlights].color = parse_color(parse);
 	store->lights[store->nlights].bright = parse_num(parse);
+	store->lights[store->nlights].color = parse_color(parse);
 	store->nlights++;
 }
 
-void 	parse_camcyl(struct s_parse *parse)
+void	parse_cam(struct s_parse *parse)
 {
-	t_store		*store;
-	t_cam		*cam;
+	t_store	*store;
+	t_cam	*cam;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	if (parse->current == 'y')
+		return (parse_cyl(parse));
+	if (store->ncams >= 1000)
+		panic_with_error("Too many cameras");
+	cam = &store->cams[store->ncams];
+	cam->coord = parse_vec(parse);
+	cam->ori = parse_vec(parse);
+	cam->fov = parse_num(parse) / 2 * M_PI / 180;
+	cam->scale = tan(cam->fov);
+	cam->mat.f = norm(cam->ori);
+	cam->mat.r = cross((t_vec3){0, 1, 0}, cam->mat.f);
+	cam->mat.u = cross(cam->mat.f, cam->mat.r);
+	store->ncams++;
+}
+void	parse_camcyl(struct s_parse *parse)
+{
+	t_store	*store;
+	t_cam	*cam;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -184,9 +203,11 @@ void	parse_object(struct s_parse *parse)
 		parse_res(parse);
 	else if (parse->current == 'A')
 		parse_ambiant(parse);
+	else if (parse->current == 'C')
+		parse_cam(parse);
 	else if (parse->current == 'c')
 		parse_camcyl(parse);
-	else if (parse->current == 'l')
+	else if (parse->current == 'L')
 		parse_light(parse);
 	else if (parse->current == 's')
 		parse_spherebox(parse);
