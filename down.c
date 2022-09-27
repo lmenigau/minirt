@@ -2,9 +2,11 @@
 
 char	next_char(struct s_buf *buf)
 {
+	ssize_t	rsize;
+
 	if (buf->index == buf->len)
 	{
-		ssize_t (rsize) = read(buf->fd, buf->buf, 4096);
+		rsize = read(buf->fd, buf->buf, 4096);
 		if (rsize < 0)
 			panic_with_error("read fail\n");
 		buf->len = rsize;
@@ -33,8 +35,8 @@ void	next_token(struct s_parse *parse)
 
 float	parse_num(struct s_parse *parse)
 {
-	double	 	nb;
-	double		pow;
+	double	nb;
+	double	pow;
 
 	nb = 0;
 	pow = 1;

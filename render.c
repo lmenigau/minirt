@@ -17,7 +17,6 @@ t_vec3	camray(t_global *global, t_ivec coord)
 	return (dir);
 }
 
-
 float	sphere_solver(t_sphere sp, t_ray ray)
 {
 	float	delta;
@@ -31,8 +30,8 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 	delta = v.y * v.y - 4 * v.x * v.z;
 	if (delta >= 0)
 	{	
-		inter.x = (- v.y + sqrtf(delta)) / (2 * v.x);
-		inter.y = (- v.y - sqrtf(delta)) / (2 * v.x);
+		inter.x = (-v.y + sqrtf(delta)) / (2 * v.x);
+		inter.y = (-v.y - sqrtf(delta)) / (2 * v.x);
 		if (inter.x < 0 && inter.y > inter.x)
 			return (inter.y);
 		else
@@ -50,7 +49,7 @@ _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 		return (1);
 	hit->p = add(ray.ori, mul(ray.dir, d));
 	hit->n = norm(sub(hit->p, sp.coord));
-	hit->c = sp.color; 
+	hit->c = sp.color;
 	return (0);
 }
 

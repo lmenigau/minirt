@@ -2,9 +2,9 @@
 
 t_vec3	col(t_light *light, t_hit hit)
 {
-	t_vec3 lp;
-	t_vec3 t;
-	float lamb;
+	t_vec3	lp;
+	t_vec3	t;
+	float	lamb;
 
 	lp = sub(light->coord, hit.p);
 	lamb = dot(hit.n, norm(lp));
@@ -14,7 +14,7 @@ t_vec3	col(t_light *light, t_hit hit)
 	return (t);
 }
 
-t_vec3		light(t_scene *scene, t_hit hit)
+t_vec3	light(t_scene *scene, t_hit hit)
 {
 	int		i;
 	t_vec3	c;

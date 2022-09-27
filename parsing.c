@@ -17,11 +17,13 @@ t_vec3	parse_vec(struct s_parse *parse)
 void	parse_res(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
-	if (!parse->scene.isreso) {
+	if (!parse->scene.isreso)
+	{
 		parse->scene.reso.x = parse_num(parse);
 		parse->scene.reso.y = parse_num(parse);
 		parse->scene.isreso = 1;
-	} else
+	}
+	else
 		panic_with_error("multiple resolution");
 }
 
@@ -138,7 +140,7 @@ void	parse_spherebox(struct s_parse *parse)
 	store->nspheres++;
 }
 
-void	 parse_light(struct s_parse *parse)
+void	parse_light(struct s_parse *parse)
 {
 	t_store	*store;
 
@@ -175,6 +177,7 @@ void	parse_cam(struct s_parse *parse)
 	cam->mat.u = cross(cam->mat.f, cam->mat.r);
 	store->ncams++;
 }
+
 void	parse_camcyl(struct s_parse *parse)
 {
 	t_store	*store;
