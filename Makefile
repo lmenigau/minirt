@@ -5,7 +5,6 @@ NAME	= miniRT
 CFLAGS	:= $(DEBUG) -g -Wall -Wextra -Werror
 CPPFLAGS += -I minilibx-linux
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
-NAME	= minishell
 CC		= cc
 DEP := $(addprefix dep/, $(SRC:.c=.d))
 

@@ -64,6 +64,7 @@ void	screen(t_global *global)
 		if (!global->mlx)
 			panic_with_error("connection to the X server failed\n");
 		window(global);
+			printf("lol\n");
 		iterate_pixels(global);
 		mlx_put_image_to_window(global->mlx, global->win, global->img, 0, 0);
 		mlx_loop(global->mlx);
