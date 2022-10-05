@@ -45,6 +45,7 @@ all		: $(NAME)
 
 fclean	: clean
 		$(RM) $(NAME)
+		make -C ${MLX_DIR} clean
 
 clean	:
 		$(RM) -rf obj

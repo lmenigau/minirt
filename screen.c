@@ -49,7 +49,7 @@ void	window(t_global *global)
 		panic_with_error("image fail\n");
 	global->screen = mlx_get_data_addr(global->img, &(int){0},
 			&global->sizeline, &(int){0});
-	global->ratio = reso->x / (float)reso->y;
+	global->ratio = reso->y / (float)reso->x;
 }
 
 void	screen(t_global *global)
@@ -57,14 +57,13 @@ void	screen(t_global *global)
 	t_ivec		*reso;
 
 	reso = &global->parse.scene.reso;
-	*reso = (t_ivec){1920, 1080};
+	*reso = (t_ivec){1800, 1000};
 	if (!global->options.save)
 	{
 		global->mlx = mlx_init();
 		if (!global->mlx)
 			panic_with_error("connection to the X server failed\n");
 		window(global);
-			printf("lol\n");
 		iterate_pixels(global);
 		mlx_put_image_to_window(global->mlx, global->win, global->img, 0, 0);
 		mlx_loop(global->mlx);
