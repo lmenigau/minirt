@@ -57,10 +57,7 @@ int	main(int ac, char **av)
 {
 	static t_global	*global;
 
-	write(1, "s1\n", 3);
 	global = init_global();
 	parse_opt(global, ac, av);
-	printf("s1\n");
 	screen(global);
-	printf("s1\n");
 }

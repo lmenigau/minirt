@@ -2,7 +2,8 @@ SRC		= main.c parsing.c storage.c down.c vec.c screen.c render.c light.c
 LFLAGS	=  -lmlx -lXext -lX11 -lm
 LDFLAGS	= -L minilibx-linux
 NAME	= miniRT
-CFLAGS	:= $(DEBUG) -g -Wall -Wextra -Werror
+OPTFLAGS = -march=native -Ofast -flto=full
+CFLAGS	:= -g -Wall -Wextra -Werror $(OPTFLAGS) $(DEBUG) 
 CPPFLAGS += -I minilibx-linux
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 CC		= cc
@@ -13,8 +14,8 @@ ERRORFILE	:= $(addprefix err/, $(addsuffix .err, $(SRC) $(HEADER)))
 $(NAME) : $(OBJ) 
 	$(CC)  -o $(NAME) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LFLAGS)
 
-$(OBJ)	: obj/%.o : %.c dep/%.d | dep
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
+$(OBJ)	: obj/%.o : %.c dep/%.d | obj
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c  $< -o $@
 
 $(DEP)	: dep/%.d: %.c | dep
 	@set -e; rm -f $@; \

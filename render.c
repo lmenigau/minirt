@@ -1,5 +1,6 @@
 #include "minirt.h"
 #include <math.h>
+#include <stdio.h>
 
 t_vec3	camray(t_global *global, t_ivec coord)
 {
@@ -9,9 +10,8 @@ t_vec3	camray(t_global *global, t_ivec coord)
 
 	reso = global->parse.scene.reso;
 	cam = global->parse.scene.st.cams[global->cam];
-	dir.x = (2 * (coord.x + 0.5) / (float)reso.x - 1) * global->ratio
-		* cam.scale;
-	dir.y = (1 - 2 * (coord.y + 0.5) / (float)reso.y) * cam.scale;
+	dir.x = (2 * (coord.x + 0.5) / (float)reso.x - 1) * cam.scale;
+	dir.y = (1 - 2 * (coord.y + 0.5) / (float)reso.y) * global->ratio *  cam.scale;
 	dir.z = -1;
 	dir = norm(transform(cam.mat, dir));
 	return (dir);
@@ -61,10 +61,12 @@ t_vec3	intersect(t_global *global, t_ray ray)
 
 	i = 0;
 	st = global->parse.scene.st;
-	while (i < st.nspheres && hit_sphere(st.spheres[i], ray, &hit))
+	while (i < st.nspheres)
+	{
+		if (!hit_sphere(st.spheres[i], ray, &hit))
+			return (light(&global->parse.scene, hit));
 		i++;
-	if (i != st.nspheres)
-		return (light(&global->parse.scene, hit));
+	}
 	return ((t_vec3){});
 }
 
@@ -74,7 +76,7 @@ t_color	render(t_global *global, t_ivec coord)
 	t_vec3	col;
 
 	ray.dir = camray(global, coord);
-	ray.ori = global->parse.scene.st.cams[global->cam].ori;
+	ray.ori = global->parse.scene.st.cams[global->cam].coord;
 	col = intersect(global, ray);
 	return ((t_color){col.x * 255, col.y * 255, col.z * 255});
 }
