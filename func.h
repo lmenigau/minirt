@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/06 15:23:28 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/06 15:41:06 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ t_vec3		light(t_scene *scene, t_hit hit);
 float	plane_solver(t_plane pl, t_ray ray);
 int	hit_plane(t_plane pl, t_ray ray, t_hit *hit);
 
+void 		pvec3(t_vec3 v);
 #endif

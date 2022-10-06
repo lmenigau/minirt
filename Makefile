@@ -1,5 +1,14 @@
-SRC		= main.c parsing.c storage.c down.c vec.c screen.c render.c light.c \
-	planes.c
+SRC		= down.c     \
+		  light.c    \
+		  main.c     \
+		  parsing.c  \
+		  remove.c   \
+		  render.c   \
+		  screen.c   \
+		  storage.c  \
+		  vec.c      \
+		  planes.c
+
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))
 ERRORFILE	:= $(addprefix err/, $(addsuffix .err, $(SRC) $(HEADER)))
@@ -28,9 +37,9 @@ $(OBJ)	: obj/%.o : %.c dep/%.d | dep
 
 $(DEP)	: dep/%.d: %.c | dep
 	@set -e; rm -f $@; \
-	$(CC) -MM $(CPPFLAGS) $< > $@.$$$$; \
-	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
+		$(CC) -MM $(CPPFLAGS) $< > $@.$$$$; \
+		sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+		rm -f $@.$$$$
 
 dep:
 	mkdir dep
@@ -45,12 +54,12 @@ obj		:
 all		: $(NAME)
 
 fclean	: clean
-		$(RM) $(NAME)
-		make -C ${MLX_DIR} clean
+	$(RM) $(NAME)
+	make -C ${MLX_DIR} clean
 
 clean	:
-		$(RM) -rf obj
-		$(RM) -rf dep
+	$(RM) -rf obj
+	$(RM) -rf dep
 
 re		: fclean
 	$(MAKE)
