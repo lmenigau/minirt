@@ -78,6 +78,13 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		hit_sphere(st.spheres[i], ray, &hit);
 		i++;
 	}
+	i = 0;
+	while (i < st.nplanes)
+	{
+		hit_plane(st.planes[i], ray, &hit);
+		i++;
+	}
+
 	// return (light(&global->parse.scene, hit));
 	return (hit.c);
 }

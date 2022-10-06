@@ -1,4 +1,5 @@
-SRC		= main.c parsing.c storage.c down.c vec.c screen.c render.c light.c
+SRC		= main.c parsing.c storage.c down.c vec.c screen.c render.c light.c \
+	planes.c
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))
 ERRORFILE	:= $(addprefix err/, $(addsuffix .err, $(SRC) $(HEADER)))
