@@ -32,12 +32,15 @@ typedef struct s_vec2
 	float		y;
 }				t_vec2;
 
+typedef float t_vec3  __attribute__((ext_vector_type(3)));
+#if 0
 typedef struct s_vec3
 {
 	float		x;
 	float		y;
 	float		z;
 }				t_vec3;
+#endif
 
 typedef struct s_ray
 {

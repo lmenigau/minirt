@@ -5,12 +5,12 @@ t_vec3	col(t_light *light, t_hit hit)
 	t_vec3	lp;
 	t_vec3	t;
 	float	lamb;
+	float d;
 
-	lp = sub(light->coord, hit.p);
-	lamb = dot(hit.n, norm(lp));
-	t = mul(hit.c, fmaxf(0, lamb));
-	t = vmul(t, light->color);
-	//t = mul(t, light->bright / (len(lp) * len(lp)));
+	lp = light->coord - hit.p;
+	d = len(lp);
+	lamb = fmaxf(0, dot(norm(lp), hit.n));
+	t = hit.c * light->bright * lamb * light->color / (4 * M_PI * d * d);
 	return (t);
 }
 
@@ -19,11 +19,11 @@ t_vec3	light(t_scene *scene, t_hit hit)
 	int		i;
 	t_vec3	c;
 
-	c = vmul(scene->ambiant, hit.c);
+	c = scene->ambiant * hit.c * .5;
 	i = 0;
 	while (i < scene->st.nlights)
 	{
-		c = add(c, col(&scene->st.lights[i], hit));
+		c += col(&scene->st.lights[i], hit) * 100;
 		i++;
 	}
 	return (c);
