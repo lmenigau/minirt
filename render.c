@@ -11,7 +11,7 @@ t_vec3	camray(t_global *global, t_ivec coord)
 	reso = global->parse.scene.reso;
 	cam = global->parse.scene.st.cams[global->cam];
 	dir.x = (2 * (coord.x + 0.5) / (float)reso.x - 1) * cam.scale;
-	dir.y = (1 - 2 * (coord.y + 0.5) / (float)reso.y) * global->ratio *  cam.scale;
+	dir.y = (1 - 2 * (coord.y + 0.5) / (float)reso.y) * global->ratio * cam.scale;
 	dir.z = -1;
 	dir = norm(transform(cam.mat, dir));
 	return (dir);
@@ -32,10 +32,14 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 	{	
 		inter.x = (-v.y + sqrtf(delta)) / (2 * v.x);
 		inter.y = (-v.y - sqrtf(delta)) / (2 * v.x);
-		if (inter.x < 0 && inter.y > inter.x)
+		if (inter.x < 0)
 			return (inter.y);
-		else
+		else if (inter.y < 0)
 			return (inter.x);
+		else if (inter.x < inter.y)
+			return (inter.x);
+		else
+			return (inter.y);
 	}
 	return (-1);
 }
@@ -43,13 +47,19 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 {
 	float	d;
+	t_vec3	v;
 
 	d = sphere_solver(sp, ray);
 	if (d < 0)
 		return (1);
-	hit->p = add(ray.ori, mul(ray.dir, d));
-	hit->n = norm(sub(hit->p, sp.coord));
-	hit->c = sp.color;
+	v = add(ray.ori, mul(ray.dir, d));
+	if (len(sub(hit->p, ray.ori)) == 0
+		|| len(sub(v, ray.ori)) < len(sub(hit->p, ray.ori)))
+	{
+		hit->p = v;
+		hit->n = norm(sub(hit->p, sp.coord));
+		hit->c = sp.color;
+	}
 	return (0);
 }
 
@@ -61,13 +71,15 @@ t_vec3	intersect(t_global *global, t_ray ray)
 
 	i = 0;
 	st = global->parse.scene.st;
+	hit.c = (t_vec3){};
+	hit.p = ray.ori;
 	while (i < st.nspheres)
 	{
-		if (!hit_sphere(st.spheres[i], ray, &hit))
-			return (light(&global->parse.scene, hit));
+		hit_sphere(st.spheres[i], ray, &hit);
 		i++;
 	}
-	return ((t_vec3){});
+	// return (light(&global->parse.scene, hit));
+	return (hit.c);
 }
 
 t_color	render(t_global *global, t_ivec coord)
