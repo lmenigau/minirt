@@ -84,12 +84,8 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		hit_plane(st.planes[i], ray, &hit);
 		i++;
 	}
-	 return (light(&global->parse.scene, hit));
-<<<<<<< HEAD
+	//  return (light(&global->parse.scene, hit));
 	return (hit.c);
-=======
-	// return (hit.c);
->>>>>>> e747a12 (Merge stash)
 }
 
 t_color	render(t_global *global, t_ivec coord)

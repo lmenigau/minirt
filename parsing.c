@@ -156,6 +156,21 @@ void	parse_light(struct s_parse *parse)
 	store->nlights++;
 }
 
+void	parse_matcam(t_cam *cam)
+{
+	cam->mat.f = mul(norm(cam->ori), -1);
+	if (cam->mat.f.x == 0 && cam->mat.f.z == 0)
+	{
+		cam->mat.u = norm(cross((t_vec3){1, 0, 0}, cam->mat.f));
+		cam->mat.r = cross(cam->mat.f, cam->mat.u);
+	}
+	else
+	{
+		cam->mat.r = norm(cross((t_vec3){0, -1, 0}, cam->mat.f));
+		cam->mat.u = cross(cam->mat.r, cam->mat.f);
+	}
+}
+
 void	parse_cam(struct s_parse *parse)
 {
 	t_store	*store;
@@ -173,8 +188,7 @@ void	parse_cam(struct s_parse *parse)
 	cam->fov = parse_num(parse) * M_PI / 180 ;
 	cam->scale = tan(cam->fov / 2);
 	cam->mat.f = mul(norm(cam->ori), -1);
-	cam->mat.r = cross((t_vec3){0, -1, 0}, cam->mat.f);
-	cam->mat.u = cross(cam->mat.r, cam->mat.f);
+	parse_matcam(cam);
 	store->ncams++;
 }
 
