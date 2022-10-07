@@ -85,6 +85,7 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		i++;
 	}
 	return (light(&global->parse.scene, hit));
+	// return (hit.c);
 }
 
 t_color	render(t_global *global, t_ivec coord)
