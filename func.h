@@ -40,6 +40,7 @@ t_vec3		add(t_vec3 v1, t_vec3 v2);
 t_vec3		sub(t_vec3 v1, t_vec3 v2);
 t_vec3		norm(t_vec3 vec);
 t_vec3		transform(t_mat mat, t_vec3 v);
+t_vec3		clamp(t_vec3 v);
 float		len(t_vec3 vec);
 
 void		screen(t_global *global);
@@ -47,7 +48,8 @@ t_color		render(t_global *global, t_ivec coord);
 t_vec3		light(t_scene *scene, t_hit hit);
 
 float	plane_solver(t_plane pl, t_ray ray);
-int	hit_plane(t_plane pl, t_ray ray, t_hit *hit);
+int		hit_plane(t_plane pl, t_ray ray, t_hit *hit);
+_Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
 
 void 		pvec3(t_vec3 v);
 #endif

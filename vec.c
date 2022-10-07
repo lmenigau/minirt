@@ -53,3 +53,7 @@ t_vec3	transform(t_mat mat, t_vec3 v)
 		v.x * mat.r.z + v.y * mat.u.z + v.z * mat.f.z,
 	});
 }
+t_vec3	clamp(t_vec3 v)
+{
+	return (t_vec3){fminf(v.x, 1), fminf(v.y, 1), fminf(v.z, 1)};
+}
