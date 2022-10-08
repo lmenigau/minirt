@@ -13,7 +13,6 @@
 #ifndef MINIRT_H
 # define MINIRT_H 
 
-# include <sys/errno.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
@@ -24,5 +23,8 @@
 # include "mlx.h"
 # include "struct.h"
 # include "func.h"
+# include <sys/errno.h>
 
+# define XK_Escape	0xff1b
+# define DestroyNotify	17
 #endif

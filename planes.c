@@ -17,7 +17,7 @@ int	hit_plane(t_plane pl, t_ray ray, t_hit *hit)
 
 	d = plane_solver(pl, ray);
 	if (d < 0)
-		return (1);
+		return (0);
 	v = add(ray.ori, mul(ray.dir, d));
 	if (len(sub(hit->p, ray.ori)) == 0
 		|| len(sub(v, ray.ori)) < len(sub(hit->p, ray.ori)))
@@ -26,5 +26,5 @@ int	hit_plane(t_plane pl, t_ray ray, t_hit *hit)
 		hit->n = pl.ori;
 		hit->c = pl.color;
 	}
-	return (0);
+	return (1);
 }

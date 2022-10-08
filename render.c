@@ -51,7 +51,7 @@ _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 
 	d = sphere_solver(sp, ray);
 	if (d < 0)
-		return (1);
+		return (0);
 	v = add(ray.ori, mul(ray.dir, d));
 	if (len(sub(hit->p, ray.ori)) == 0
 		|| len(sub(v, ray.ori)) < len(sub(hit->p, ray.ori)))
@@ -60,7 +60,7 @@ _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 		hit->n = norm(sub(hit->p, sp.coord));
 		hit->c = sp.color;
 	}
-	return (0);
+	return (1);
 }
 
 t_vec3	intersect(t_global *global, t_ray ray)
@@ -84,7 +84,7 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		hit_plane(st.planes[i], ray, &hit);
 		i++;
 	}
-	 return (light(&global->parse.scene, hit));
+	return (light(&global->parse.scene, hit));
 	return (hit.c);
 }
 

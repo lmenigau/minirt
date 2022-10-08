@@ -1,5 +1,6 @@
 #include "minirt.h"
 
+
 void	store_pixel(t_global *global, t_ivec pos, t_color col)
 {
 	unsigned int	*ptr;
@@ -30,6 +31,19 @@ void	iterate_pixels(t_global *global)
 	}
 }
 
+int escape(int keysim, t_global *global)
+{
+	if (keysim == XK_Escape)
+		mlx_loop_end(global->mlx);
+	return (0);
+}
+
+int win_close(t_global *global)
+{
+	mlx_loop_end(global->mlx);
+	return (0);
+}
+
 void	window(t_global *global)
 {
 	t_ivec		*reso;
@@ -50,6 +64,8 @@ void	window(t_global *global)
 	global->screen = mlx_get_data_addr(global->img, &(int){0},
 			&global->sizeline, &(int){0});
 	global->ratio = reso->y / (float)reso->x;
+	mlx_key_hook(global->win, escape, global);
+	mlx_hook(global->win, DestroyNotify, 0, win_close, global);
 }
 
 void	screen(t_global *global)
