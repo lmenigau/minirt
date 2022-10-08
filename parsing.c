@@ -135,7 +135,7 @@ void	parse_spherebox(struct s_parse *parse)
 	if (store->nspheres >= 1000)
 		panic_with_error("Too many spheres");
 	store->spheres[store->nspheres].coord = parse_vec(parse);
-	store->spheres[store->nspheres].size = parse_num(parse);
+	store->spheres[store->nspheres].size = parse_num(parse) / 2;
 	store->spheres[store->nspheres].color = parse_color(parse);
 	store->nspheres++;
 }

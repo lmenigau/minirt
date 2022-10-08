@@ -24,7 +24,7 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 	t_vec2	inter;
 	t_vec3	v;
 
-	oc = sub(ray.ori, sp.coord);
+	oc = ray.ori - sp.coord;
 	v = (t_vec3){dot(ray.dir, ray.dir), 2 * dot(ray.dir, oc),
 		dot(oc, oc) - sp.size * sp.size};
 	delta = v.y * v.y - 4 * v.x * v.z;
@@ -52,12 +52,12 @@ _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 	d = sphere_solver(sp, ray);
 	if (d < 0)
 		return (0);
-	v = add(ray.ori, mul(ray.dir, d));
-	if (len(sub(hit->p, ray.ori)) == 0
-		|| len(sub(v, ray.ori)) < len(sub(hit->p, ray.ori)))
+	v = ray.ori + ray.dir * d;
+	if (len(hit->p - ray.ori) == 0
+		|| len(v - ray.ori) < len(hit->p - ray.ori))
 	{
 		hit->p = v;
-		hit->n = norm(sub(hit->p, sp.coord));
+		hit->n = norm(hit->p - sp.coord);
 		hit->c = sp.color;
 	}
 	return (1);
@@ -69,10 +69,10 @@ t_vec3	intersect(t_global *global, t_ray ray)
 	t_store	st;
 	t_hit	hit;
 
-	i = 0;
 	st = global->parse.scene.st;
 	hit.c = (t_vec3){};
 	hit.p = ray.ori;
+	i = 0;
 	while (i < st.nspheres)
 	{
 		hit_sphere(st.spheres[i], ray, &hit);
@@ -85,7 +85,6 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		i++;
 	}
 	return (light(&global->parse.scene, hit));
-	return (hit.c);
 }
 
 t_color	render(t_global *global, t_ivec coord)
