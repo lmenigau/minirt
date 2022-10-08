@@ -34,14 +34,14 @@ _Bool visible(t_scene *scene, t_hit hit, t_light *light, t_vec3 *lp)
 	i = 0;
 	while (i < scene->st.nspheres)
 	{
-		if (hit_sphere(scene->st.spheres[i], (t_ray){pl, hit.p + pl *0.001}, &(t_hit){}))
+		if (sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl *0.001}) >= 0)
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (i < scene->st.nplanes)
 	{
-		if (hit_plane(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0.001}, &(t_hit){}))
+		if (plane_solver(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0.001}) >= 0)
 			return (0);
 		i++;
 	}

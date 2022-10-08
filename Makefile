@@ -19,7 +19,7 @@ MLX_L = ${MLX:lib%.a=%}
 
 NAME	= miniRT
 
-CFLAGS	:= $(DEBUG) -g -Wall -Wextra -Werror
+CFLAGS	:= $(DEBUG) -Ofast -flto=full -g -Wall -Wextra -Werror
 CPPFLAGS += -I ${MLX_DIR}
 LFLAGS	=  -l${MLX_L} -lXext -lX11 -lm
 LDFLAGS	= -L ${MLX_DIR}
