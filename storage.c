@@ -29,5 +29,6 @@ t_global	*init_global(void)
 {
 	static t_global	global = {};
 
+	global.parse.scene.reso = (t_ivec){1800, 1000};
 	return (&global);
 }

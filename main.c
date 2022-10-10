@@ -55,9 +55,16 @@ void	parse_opt(t_global *global, int ac, char *av[])
 
 int	main(int ac, char **av)
 {
-	static t_global	*global;
+	t_global	*global;
 
 	global = init_global();
 	parse_opt(global, ac, av);
 	screen(global);
+	if (!global->options.save)
+	{
+		mlx_destroy_image(global->mlx, global->img);
+		mlx_destroy_window(global->mlx, global->win);
+		mlx_destroy_display(global->mlx);
+		free(global->mlx);
+	}
 }
