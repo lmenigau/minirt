@@ -7,6 +7,7 @@ SRC		= down.c     \
 		  screen.c   \
 		  storage.c  \
 		  vec.c      \
+		  libft.c    \
 		  planes.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))

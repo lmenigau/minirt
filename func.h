@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/10 14:59:02 by lomeniga         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:23:32 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,6 @@ float	sphere_solver(t_sphere sp, t_ray ray);
 _Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
 
 void 		pvec3(t_vec3 v);
+size_t		ft_strlen(char *s);
+int			ft_strcmp(const char *s1, const char *s2);
 #endif

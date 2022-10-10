@@ -8,7 +8,7 @@ char	next_char(struct s_buf *buf)
 	{
 		rsize = read(buf->fd, buf->buf, 4096);
 		if (rsize < 0)
-			panic_with_error(NULL, "read fail\n");
+			panic_with_error(NULL, "fail to read because");
 		buf->len = rsize;
 		buf->index = 0;
 	}

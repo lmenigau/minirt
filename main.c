@@ -13,9 +13,10 @@ void	print(const char *str)
 void	panic_with_error(t_global *g, char *msg)
 {
 	print("Error\n");
-	print(msg);
 	if (errno)
 		perror(msg);
+	else
+		printf("%s\n", msg);
 	if (g)
 	{
 		if (g->img)
@@ -28,16 +29,6 @@ void	panic_with_error(t_global *g, char *msg)
 			free(g->mlx);
 	}
 	exit(1);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	while (*s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 void	parse_opt(t_global *global, int ac, char *av[])
@@ -56,6 +47,8 @@ void	parse_opt(t_global *global, int ac, char *av[])
 			fd = open(av[index], O_RDONLY);
 			if (fd < 0)
 				panic_with_error(global, av[index]);
+			if (ft_strcmp(av[index] + (ft_strlen(av[index]) - 3),  ".rt"))
+				panic_with_error(global, "missing .rt extension");
 			parse_scene(global, fd);
 		}
 		index++;

@@ -24,7 +24,7 @@ void	parse_res(struct s_parse *parse)
 		parse->scene.isreso = 1;
 	}
 	else
-		panic_with_error(NULL,"multiple resolution");
+		panic_with_error(NULL, "multiple resolution");
 }
 
 _Bool	in_range(t_vec3 v, float low, float high)
