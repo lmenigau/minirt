@@ -33,6 +33,17 @@ void	next_token(struct s_parse *parse)
 	}
 }
 
+float	parse_num_cont(double pow, double nb, struct s_parse *parse)
+{
+	while (ft_isdigit(parse->current))
+	{
+		pow *= .1;
+		nb += pow * (parse->current - '0');
+		parse->current = next_char(&parse->buf);
+	}
+	return (nb);
+}
+
 float	parse_num(struct s_parse *parse)
 {
 	double	nb;
@@ -54,12 +65,7 @@ float	parse_num(struct s_parse *parse)
 	}
 	if (parse->current == '.')
 		parse->current = next_char(&parse->buf);
-	while (ft_isdigit(parse->current))
-	{
-		nb += (pow *= .1) * (parse->current - '0');
-		parse->current = next_char(&parse->buf);
-	}
-	return (nb);
+	return (parse_num_cont(pow, nb, parse));
 }
 
 void	eat(struct s_parse *parse, char c)
