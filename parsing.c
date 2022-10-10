@@ -24,7 +24,7 @@ void	parse_res(struct s_parse *parse)
 		parse->scene.isreso = 1;
 	}
 	else
-		panic_with_error("multiple resolution");
+		panic_with_error(NULL,"multiple resolution");
 }
 
 _Bool	in_range(t_vec3 v, float low, float high)
@@ -44,7 +44,7 @@ t_vec3	parse_color(struct s_parse *parse)
 
 	c = parse_vec(parse);
 	if (!in_range(c, 0, 255))
-		panic_with_error("color out of bound");
+		panic_with_error(NULL, "color out of bound");
 	return ((t_vec3){c.x / 255, c.y / 255, c.z / 255});
 }
 
@@ -58,7 +58,7 @@ void	parse_ambiant(struct s_parse *parse)
 		parse->scene.isambiant = 1;
 	}
 	else
-		panic_with_error("multiple ambiant");
+		panic_with_error(NULL, "multiple ambiant");
 }
 
 void	parse_tri(struct s_parse *parse)
@@ -69,7 +69,7 @@ void	parse_tri(struct s_parse *parse)
 	parse->current = next_char(&parse->buf);
 	eat(parse, 'r');
 	if (store->ntris >= 1000)
-		panic_with_error("Too many triangles");
+		panic_with_error(NULL, "Too many triangles");
 	store->tris[store->ntris].p1 = parse_vec(parse);
 	store->tris[store->ntris].p2 = parse_vec(parse);
 	store->tris[store->ntris].p3 = parse_vec(parse);
@@ -84,7 +84,7 @@ void	parse_cyl(struct s_parse *parse)
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
 	if (store->ncyls >= 1000)
-		panic_with_error("Too many cylinders");
+		panic_with_error(NULL, "Too many cylinders");
 	store->cyls[store->ncyls].coord = parse_vec(parse);
 	store->cyls[store->ncyls].ori = parse_vec(parse);
 	store->cyls[store->ncyls].diam = parse_num(parse);
@@ -100,7 +100,7 @@ void	parse_box(struct s_parse *parse)
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
 	if (store->nboxs >= 1000)
-		panic_with_error("Too many boxes");
+		panic_with_error(NULL, "Too many boxes");
 	store->boxs[store->nboxs].coord = parse_vec(parse);
 	store->boxs[store->nboxs].ori = parse_vec(parse);
 	store->boxs[store->nboxs].size = parse_num(parse);
@@ -116,7 +116,7 @@ void	parse_plane(struct s_parse *parse)
 	parse->current = next_char(&parse->buf);
 	eat(parse, 'l');
 	if (store->nplanes >= 1000)
-		panic_with_error("Too many planes");
+		panic_with_error(NULL, "Too many planes");
 	store->planes[store->nplanes].coord = parse_vec(parse);
 	store->planes[store->nplanes].ori = parse_vec(parse);
 	store->planes[store->nplanes].color = parse_color(parse);
@@ -133,7 +133,7 @@ void	parse_spherebox(struct s_parse *parse)
 		return (parse_box(parse));
 	eat(parse, 'p');
 	if (store->nspheres >= 1000)
-		panic_with_error("Too many spheres");
+		panic_with_error(NULL, "Too many spheres");
 	store->spheres[store->nspheres].coord = parse_vec(parse);
 	store->spheres[store->nspheres].size = parse_num(parse) / 2;
 	store->spheres[store->nspheres].color = parse_color(parse);
@@ -149,7 +149,7 @@ void	parse_light(struct s_parse *parse)
 	if (parse->current == 'y')
 		return (parse_cyl(parse));
 	if (store->nlights >= 1000)
-		panic_with_error("Too many lights");
+		panic_with_error(NULL, "Too many lights");
 	store->lights[store->nlights].coord = parse_vec(parse);
 	store->lights[store->nlights].bright = parse_num(parse);
 	store->lights[store->nlights].color = parse_color(parse);
@@ -166,7 +166,7 @@ void	parse_cam(struct s_parse *parse)
 	if (parse->current == 'y')
 		return (parse_cyl(parse));
 	if (store->ncams >= 1000)
-		panic_with_error("Too many cameras");
+		panic_with_error(NULL, "Too many cameras");
 	cam = &store->cams[store->ncams];
 	cam->coord = parse_vec(parse);
 	cam->ori = parse_vec(parse);
@@ -188,7 +188,7 @@ void	parse_camcyl(struct s_parse *parse)
 	if (parse->current == 'y')
 		return (parse_cyl(parse));
 	if (store->ncams >= 1000)
-		panic_with_error("Too many cameras");
+		panic_with_error(NULL, "Too many cameras");
 	cam = &store->cams[store->ncams];
 	cam->coord = parse_vec(parse);
 	cam->ori = parse_vec(parse);
@@ -221,7 +221,7 @@ void	parse_object(struct s_parse *parse)
 	else if (parse->current == '\n')
 		;
 	else
-		panic_with_error("undefined object");
+		panic_with_error(NULL, "undefined object");
 }
 
 void	parse_line(struct s_parse *parse)

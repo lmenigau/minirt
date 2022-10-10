@@ -57,10 +57,10 @@ void	window(t_global *global)
 		reso->y = screen.y;
 	global->win = mlx_new_window(global->mlx, reso->x, reso->y, "Minirt");
 	if (!global->win)
-		panic_with_error("window fail\n");
+		panic_with_error(global, "window fail\n");
 	global->img = mlx_new_image(global->mlx, reso->x, reso->y);
 	if (!global->img)
-		panic_with_error("image fail\n");
+		panic_with_error(global, "image fail\n");
 	global->screen = mlx_get_data_addr(global->img, &(int){0},
 			&global->sizeline, &(int){0});
 	global->ratio = reso->y / (float)reso->x;
@@ -77,7 +77,7 @@ void	screen(t_global *global)
 	{
 		global->mlx = mlx_init();
 		if (!global->mlx)
-			panic_with_error("connection to the X server failed\n");
+			panic_with_error(global, "connection to the X server failed\n");
 		window(global);
 		iterate_pixels(global);
 		mlx_put_image_to_window(global->mlx, global->win, global->img, 0, 0);
@@ -87,6 +87,7 @@ void	screen(t_global *global)
 	{
 		global->screen = malloc(sizeof(t_color) * reso->x * reso->y);
 		if (!global->screen)
-			panic_with_error("malloc failed\n");
+			panic_with_error(NULL, "malloc failed\n");
+		free(global->screen);
 	}
 }

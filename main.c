@@ -10,12 +10,23 @@ void	print(const char *str)
 	write(1, str, len);
 }
 
-void	panic_with_error(char *msg)
+void	panic_with_error(t_global *g, char *msg)
 {
 	print("Error\n");
 	print(msg);
 	if (errno)
 		perror(msg);
+	if (g)
+	{
+		if (g->img)
+			mlx_destroy_image(g->mlx, g->img);
+		if (g->win)
+			mlx_destroy_window(g->mlx, g->win);
+		if (g->mlx)
+			mlx_destroy_display(g->mlx);
+		if (g->mlx)
+			free(g->mlx);
+	}
 	exit(1);
 }
 
@@ -44,13 +55,13 @@ void	parse_opt(t_global *global, int ac, char *av[])
 		{
 			fd = open(av[index], O_RDONLY);
 			if (fd < 0)
-				panic_with_error("");
+				panic_with_error(global, av[index]);
 			parse_scene(global, fd);
 		}
 		index++;
 	}
 	if (fd == -2)
-		panic_with_error("input file missing\n");
+		panic_with_error(global, "input file missing\n");
 }
 
 int	main(int ac, char **av)

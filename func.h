@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/06 15:41:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/10 14:59:02 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		next_char(struct s_buf *buf);
 void		eat(struct s_parse *parse, char c);
 float		parse_num(struct s_parse *parse);
 void		parse_scene(t_global *global, int fd);
-void		panic_with_error(char *str);
+void		panic_with_error(t_global *g, char *str);
 void		print(const char *str);
 void		init_scene(struct s_scene *scene);
 t_global	*init_global(void);
