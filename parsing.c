@@ -87,6 +87,17 @@ void	parse_tri(struct s_parse *parse)
 	store->ntris++;
 }
 
+void	parse_matcyl(t_cyl *cyl)
+{
+	t_mat4	translation;
+	t_mat4	rotation;
+	t_mat4	scale;
+
+	set_translation(&translation, cyl->coord);
+	set_rotation(&rotation, (t_vec3){0, 0, 1}, cyl->ori);
+	set_scale(&scale, cyl->height, cyl->radius);
+}
+
 void	parse_cyl(struct s_parse *parse)
 {
 	t_store	*store;
@@ -96,8 +107,8 @@ void	parse_cyl(struct s_parse *parse)
 	if (store->ncyls >= 1000)
 		panic_with_error(NULL, "Too many cylinders");
 	store->cyls[store->ncyls].coord = parse_vec(parse);
-	store->cyls[store->ncyls].ori = parse_ori(parse);
-	store->cyls[store->ncyls].diam = parse_num(parse);
+	store->cyls[store->ncyls].ori = parse_vec(parse);
+	store->cyls[store->ncyls].radius = parse_num(parse) / 2;
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
 	store->ncyls++;

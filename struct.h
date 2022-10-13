@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/02 19:04:49 by lomeniga         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:09:28 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ typedef struct s_vec3
 }				t_vec3;
 #endif
 
+typedef float t_vec4  __attribute__((ext_vector_type(4)));
+#if 0
+typedef struct s_vec4
+{
+	float		x;
+	float		y;
+	float		z;
+	float		w;
+}				t_vec4;
+#endif
+
+
 typedef struct s_ray
 {
 	t_vec3	dir;
@@ -54,6 +66,14 @@ typedef struct s_mat
 	t_vec3	r;
 	t_vec3	u;
 }				t_mat;
+
+typedef struct s_mat4
+{
+	t_vec4	x;
+	t_vec4	y;
+	t_vec4	z;
+	t_vec4	w;
+}				t_mat4;
 
 typedef struct s_color
 {
@@ -113,8 +133,9 @@ typedef struct s_cyl
 	t_vec3	coord;
 	t_vec3	ori;
 	t_vec3	color;
-	float	diam;
+	float	radius;
 	float	height;
+	t_mat4	mat;
 }				t_cyl;
 
 typedef struct s_cam
