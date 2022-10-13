@@ -67,6 +67,7 @@ typedef struct s_hit
 	t_vec3		p;
 	t_vec3		n;
 	t_vec3		c;
+	float			d;
 
 }				t_hit;
 

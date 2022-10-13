@@ -20,12 +20,12 @@ MLX_L = ${MLX:lib%.a=%}
 
 NAME	= miniRT
 
-CFLAGS	:= $(DEBUG) -Ofast -flto=full -g -Wall -Wextra -Werror
+CFLAGS	:= $(DEBUG) -Ofast -flto -g -Wall -Wextra -Werror
 CPPFLAGS += -I ${MLX_DIR}
 LFLAGS	=  -l${MLX_L} -lXext -lX11 -lm
 LDFLAGS	= -L ${MLX_DIR}
 
-CC		= cc
+CC		= clang
 
 $(NAME) : ${MLX_DIR}/${MLX} $(OBJ) 
 	$(CC)  -o $(NAME) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LFLAGS)

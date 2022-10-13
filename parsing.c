@@ -38,13 +38,23 @@ _Bool	in_range(t_vec3 v, float low, float high)
 	return (1);
 }
 
+t_vec3	parse_ori(struct s_parse *parse)
+{
+	t_vec3	c;
+
+	c = parse_vec(parse);
+	if (!in_range(c, -1, 1))
+		panic_with_error(NULL, "orientation must be between -1 and 1");
+	return ((t_vec3){c.x, c.y, c.z});
+}
+
 t_vec3	parse_color(struct s_parse *parse)
 {
 	t_vec3	c;
 
 	c = parse_vec(parse);
 	if (!in_range(c, 0, 255))
-		panic_with_error(NULL, "color out of bound");
+		panic_with_error(NULL, "color muse be between 0 and 255");
 	return ((t_vec3){c.x / 255, c.y / 255, c.z / 255});
 }
 
@@ -86,7 +96,7 @@ void	parse_cyl(struct s_parse *parse)
 	if (store->ncyls >= 1000)
 		panic_with_error(NULL, "Too many cylinders");
 	store->cyls[store->ncyls].coord = parse_vec(parse);
-	store->cyls[store->ncyls].ori = parse_vec(parse);
+	store->cyls[store->ncyls].ori = parse_ori(parse);
 	store->cyls[store->ncyls].diam = parse_num(parse);
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
@@ -102,7 +112,7 @@ void	parse_box(struct s_parse *parse)
 	if (store->nboxs >= 1000)
 		panic_with_error(NULL, "Too many boxes");
 	store->boxs[store->nboxs].coord = parse_vec(parse);
-	store->boxs[store->nboxs].ori = parse_vec(parse);
+	store->boxs[store->nboxs].ori = parse_ori(parse);
 	store->boxs[store->nboxs].size = parse_num(parse);
 	store->boxs[store->nboxs].color = parse_color(parse);
 	store->nboxs++;
@@ -118,7 +128,7 @@ void	parse_plane(struct s_parse *parse)
 	if (store->nplanes >= 1000)
 		panic_with_error(NULL, "Too many planes");
 	store->planes[store->nplanes].coord = parse_vec(parse);
-	store->planes[store->nplanes].ori = parse_vec(parse);
+	store->planes[store->nplanes].ori = parse_ori(parse);
 	store->planes[store->nplanes].color = parse_color(parse);
 	store->nplanes++;
 }
@@ -184,7 +194,7 @@ void	parse_cam(struct s_parse *parse)
 		panic_with_error(NULL, "Too many cameras");
 	cam = &store->cams[store->ncams];
 	cam->coord = parse_vec(parse);
-	cam->ori = parse_vec(parse);
+	cam->ori = parse_ori(parse);
 	cam->fov = parse_num(parse) * M_PI / 180 ;
 	cam->scale = tan(cam->fov / 2);
 	cam->mat.f = mul(norm(cam->ori), -1);
@@ -205,7 +215,7 @@ void	parse_camcyl(struct s_parse *parse)
 		panic_with_error(NULL, "Too many cameras");
 	cam = &store->cams[store->ncams];
 	cam->coord = parse_vec(parse);
-	cam->ori = parse_vec(parse);
+	cam->ori = parse_ori(parse);
 	cam->fov = parse_num(parse) * M_PI / 180;
 	cam->scale = tan(cam->fov / 2);
 	cam->mat.f = norm(cam->ori);
@@ -255,4 +265,10 @@ void	parse_scene(t_global *global, int fd)
 	{
 		parse_line(&global->parse);
 	}
+	if (global->parse.scene.st.nlights < 1)
+		panic_with_error(NULL, "there must be at least one light");
+	if (global->parse.scene.st.ncams < 1)
+		panic_with_error(NULL, "there must be at least one camera");
+	if (global->parse.scene.st.ncams < 1)
+		panic_with_error(NULL, "there must be at least one camera");
 }

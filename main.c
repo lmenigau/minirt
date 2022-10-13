@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include <stddef.h>
 
 void	print(const char *str)
 {
