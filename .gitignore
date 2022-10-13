@@ -5,3 +5,4 @@ dep/
 obj/
 tags
 miniRT
+minilibx-linux/test/mlx-test
