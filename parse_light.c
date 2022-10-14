@@ -1,0 +1,28 @@
+
+#include "func.h"
+void	parse_ambiant(struct s_parse *parse)
+{
+	parse->current = next_char(&parse->buf);
+	if (!parse->scene.isambiant)
+	{
+		parse->scene.ambiant_r = parse_num(parse);
+		parse->scene.ambiant = mul(parse_color(parse), parse->scene.ambiant_r);
+		parse->scene.isambiant = 1;
+	}
+	else
+		panic_with_error(NULL, "multiple ambiant");
+}
+
+void	parse_light(struct s_parse *parse)
+{
+	t_store	*store;
+
+	store = &parse->scene.st;
+	parse->current = next_char(&parse->buf);
+	if (store->nlights >= 1000)
+		panic_with_error(NULL, "Too many lights");
+	store->lights[store->nlights].coord = parse_vec(parse);
+	store->lights[store->nlights].bright = parse_num(parse);
+	store->lights[store->nlights].color = parse_color(parse);
+	store->nlights++;
+}
