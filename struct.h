@@ -175,12 +175,14 @@ typedef struct s_store
 
 typedef struct s_scene
 {
-	_Bool	isreso;
-	_Bool	isambiant;
 	t_ivec	reso;
 	float	ambiant_r;
 	t_vec3	ambiant;
 	t_store	st;
+	_Bool	isreso;
+	_Bool	isambiant;
+	_Bool	islight;
+	_Bool	iscam;
 }				t_scene;
 
 struct s_buf

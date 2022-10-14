@@ -167,14 +167,21 @@ void	parse_light(struct s_parse *parse)
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
-	if (parse->current == 'y')
-		return (parse_cyl(parse));
 	if (store->nlights >= 1000)
 		panic_with_error(NULL, "Too many lights");
 	store->lights[store->nlights].coord = parse_vec(parse);
 	store->lights[store->nlights].bright = parse_num(parse);
 	store->lights[store->nlights].color = parse_color(parse);
 	store->nlights++;
+}
+
+void	parse_bigl(struct s_parse *parse)
+{
+	if (parse->scene.islight)
+		panic_with_error(NULL, "there must be a signle L light");
+	else
+		parse_light(parse);
+	parse->scene.islight = 1;
 }
 
 void	parse_matcam(t_cam *cam)
@@ -216,7 +223,6 @@ void	parse_cam(struct s_parse *parse)
 void	parse_camcyl(struct s_parse *parse)
 {
 	t_store	*store;
-	t_cam	*cam;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -224,15 +230,7 @@ void	parse_camcyl(struct s_parse *parse)
 		return (parse_cyl(parse));
 	if (store->ncams >= 1000)
 		panic_with_error(NULL, "Too many cameras");
-	cam = &store->cams[store->ncams];
-	cam->coord = parse_vec(parse);
-	cam->ori = parse_ori(parse);
-	cam->fov = parse_num(parse) * M_PI / 180;
-	cam->scale = tan(cam->fov / 2);
-	cam->mat.f = norm(cam->ori);
-	cam->mat.r = cross((t_vec3){0, 1, 0}, cam->mat.f);
-	cam->mat.u = cross(cam->mat.f, cam->mat.r);
-	store->ncams++;
+	parse_cam(parse);
 }
 
 void	parse_object(struct s_parse *parse)
@@ -246,6 +244,8 @@ void	parse_object(struct s_parse *parse)
 	else if (parse->current == 'c')
 		parse_camcyl(parse);
 	else if (parse->current == 'L')
+		parse_bigl(parse);
+	else if (parse->current == 'l')
 		parse_light(parse);
 	else if (parse->current == 's')
 		parse_spherebox(parse);
