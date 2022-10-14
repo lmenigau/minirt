@@ -68,7 +68,7 @@ t_vec3	intersect(t_global *global, t_ray ray)
 	t_hit	hit;
 
 	st = global->parse.scene.st;
-	hit = (t_hit){.d = 100000};
+	hit = (t_hit){.d = INFINITY};
 	i = 0;
 	while (i < st.nspheres)
 	{
