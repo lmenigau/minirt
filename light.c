@@ -44,14 +44,12 @@ t_vec3	light(t_scene *scene, t_hit hit)
 	int		i;
 	t_vec3	c;
 	t_vec3	lp;
-	_Bool vflag;
 
 	c = scene->ambiant * hit.c;
 	i = 0;
 	while (i < scene->st.nlights)
 	{
-		vflag = visible(scene, hit, &scene->st.lights[i], &lp);
-		if (vflag)
+		if (visible(scene, hit, &scene->st.lights[i], &lp))
 			c += col(&scene->st.lights[i], hit, lp);
 		i++;
 	}
