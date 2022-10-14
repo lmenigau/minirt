@@ -13,35 +13,26 @@ t_vec3	col(t_light *light, t_hit hit, t_vec3 lp)
 	return (t);
 }
 
-_Bool iter(void *obj, t_ray *ray , int n, _Bool f())
-{
-	int i = 0;
-	while (i < n)
-	{
-		if (f(&obj[i], ray))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 _Bool visible(t_scene *scene, t_hit hit, t_light *light, t_vec3 *lp)
 {
 	int i;
+	float d;
 
 	*lp = (light->coord - hit.p);
 	t_vec3 pl = norm(*lp);
 	i = 0;
-	while (i < scene->st.nspheres)
+	while (i < scene->st.nplanes)
 	{
-		if (sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl *0.001}) >= 0)
+		d = plane_solver(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0.001});
+		if (d > 0 && d < len(*lp))
 			return (0);
 		i++;
 	}
 	i = 0;
-	while (i < scene->st.nplanes)
+	while (i < scene->st.nspheres)
 	{
-		if (plane_solver(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0.001}) >= 0)
+		d = sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl *0.001});
+		if (d > 0 && d < len(*lp))
 			return (0);
 		i++;
 	}
@@ -53,12 +44,14 @@ t_vec3	light(t_scene *scene, t_hit hit)
 	int		i;
 	t_vec3	c;
 	t_vec3	lp;
+	_Bool vflag;
 
 	c = scene->ambiant * hit.c;
 	i = 0;
 	while (i < scene->st.nlights)
 	{
-		if (visible(scene, hit, &scene->st.lights[i], &lp))
+		vflag = visible(scene, hit, &scene->st.lights[i], &lp);
+		if (vflag)
 			c += col(&scene->st.lights[i], hit, lp);
 		i++;
 	}
