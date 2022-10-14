@@ -220,6 +220,15 @@ void	parse_cam(struct s_parse *parse)
 	store->ncams++;
 }
 
+void	parse_bigc(struct s_parse *parse)
+{
+	if (parse->scene.iscam)
+		panic_with_error(NULL, "there must be a signle C cam");
+	else
+		parse_cam(parse);
+	parse->scene.iscam= 1;
+}
+
 void	parse_camcyl(struct s_parse *parse)
 {
 	t_store	*store;
@@ -240,7 +249,7 @@ void	parse_object(struct s_parse *parse)
 	else if (parse->current == 'A')
 		parse_ambiant(parse);
 	else if (parse->current == 'C')
-		parse_cam(parse);
+		parse_bigc(parse);
 	else if (parse->current == 'c')
 		parse_camcyl(parse);
 	else if (parse->current == 'L')
