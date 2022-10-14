@@ -43,7 +43,7 @@ void	parse_opt(t_global *global, int ac, char *av[])
 	{
 		if (av[index][0] == '-' && !ft_strcmp(av[index], "--save"))
 			global->options.save = 1;
-		else
+		else if (fd == -2)
 		{
 			fd = open(av[index], O_RDONLY);
 			if (fd < 0)
@@ -52,6 +52,8 @@ void	parse_opt(t_global *global, int ac, char *av[])
 				panic_with_error(global, "missing .rt extension");
 			parse_scene(global, fd);
 		}
+		else
+		panic_with_error(NULL, "Too many arguments");
 		index++;
 	}
 	if (fd == -2)
