@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-_Bool		hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
+void    hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
 char		next_char(struct s_buf *buf);
 float		dot(t_vec3 v1, t_vec3 v2);
 float		len(t_vec3 vec);
@@ -23,7 +23,7 @@ float		parse_num(struct s_parse *parse);
 float		plane_solver(t_plane pl, t_ray ray);
 float		sphere_solver(t_sphere sp, t_ray ray);
 int			ft_strcmp(const char *s1, const char *s2);
-int			hit_plane(t_plane pl, t_ray ray, t_hit *hit);
+void    hit_plane(t_plane pl, t_ray ray, t_hit *hit);
 size_t		ft_strlen(char *s);
 t_color		render(t_global *global, t_ivec coord);
 t_global	*init_global(void);

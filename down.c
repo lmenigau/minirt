@@ -29,7 +29,7 @@ void	next_token(struct s_parse *parse)
 	{
 		parse->current = next_char(&parse->buf);
 		if (parse->current == 0)
-			panic_with_error(NULL, "unexcpected EOF\n");
+			panic_with_error(NULL, "unexpected EOF\n");
 	}
 }
 

@@ -19,7 +19,7 @@ t_vec3	camray(t_global *global, t_ivec coord)
 
 float	sphere_solver(t_sphere sp, t_ray ray)
 {
-	float	delta;
+	float		delta;
 	t_vec3	oc;
 	t_vec2	inter;
 	t_vec3	v;
@@ -44,21 +44,18 @@ float	sphere_solver(t_sphere sp, t_ray ray)
 	return (-1);
 }
 
-_Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
+void	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 {
 	float	d;
 
 	d = sphere_solver(sp, ray);
-	if (d < 0)
-		return (0);
-	if (hit->d > 0 && d < hit->d)
+	if (d > 0 && d < hit->d)
 	{
 		hit->d = d;
 		hit->p = ray.ori + ray.dir * d;
 		hit->n = norm(hit->p - sp.coord);
 		hit->c = sp.color;
 	}
-	return (1);
 }
 
 t_vec3	intersect(t_global *global, t_ray ray)
@@ -70,21 +67,20 @@ t_vec3	intersect(t_global *global, t_ray ray)
 	st = global->parse.scene.st;
 	hit = (t_hit){.d = INFINITY};
 	i = 0;
-	while (i < st.nspheres)
-	{
-		hit_sphere(st.spheres[i], ray, &hit);
-		i++;
-	}
-	i = 0;
 	while (i < st.nplanes)
 	{
 		hit_plane(st.planes[i], ray, &hit);
 		i++;
 	}
+	i = 0;
+	while (i < st.nspheres)
+	{
+		hit_sphere(st.spheres[i], ray, &hit);
+		i++;
+	}
 	if (hit.d > 0)
 		return (light(&global->parse.scene, hit));
-	else
-		return (0);
+	return (0);
 }
 
 t_color	render(t_global *global, t_ivec coord)
