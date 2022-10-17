@@ -23,7 +23,7 @@ _Bool visible(t_scene *scene, t_hit hit, t_light *light, t_vec3 *lp)
 	i = 0;
 	while (i < scene->st.nplanes)
 	{
-		d = plane_solver(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0x1p-10f});
+		d = plane_solver(scene->st.planes[i], (t_ray){pl, hit.p + pl * 0x1p-10});
 		if (d > 0 && d < len(*lp))
 			return (0);
 		i++;
@@ -31,7 +31,7 @@ _Bool visible(t_scene *scene, t_hit hit, t_light *light, t_vec3 *lp)
 	i = 0;
 	while (i < scene->st.nspheres)
 	{
-		d = sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl * 0x1p-10f});
+		d = sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl * 0x1p-10});
 		if (d > 0 && d < len(*lp))
 			return (0);
 		i++;

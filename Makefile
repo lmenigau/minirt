@@ -12,6 +12,7 @@ SRC		= down.c         \
 		  render.c       \
 		  screen.c       \
 		  storage.c      \
+		  sphere.c       \
 		  vec.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
