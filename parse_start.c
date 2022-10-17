@@ -65,10 +65,10 @@ void	parse_scene(t_global *global, int fd)
 	{
 		parse_line(&global->parse);
 	}
-	if (global->parse.scene.st.nlights < 1)
-		panic_with_error(NULL, "there must be at least one light");
-	if (global->parse.scene.st.ncams < 1)
-		panic_with_error(NULL, "there must be at least one camera");
-	if (global->parse.scene.st.ncams < 1)
-		panic_with_error(NULL, "there must be at least one camera");
+	if (!global->parse.scene.islight)
+		panic_with_error(NULL, "big L light is missing");
+	if (!global->parse.scene.iscam)
+		panic_with_error(NULL, "big C camera is missing");
+	if (!global->parse.scene.isambiant)
+		panic_with_error(NULL, "Ambiant light is missing");
 }
