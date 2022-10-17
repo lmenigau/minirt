@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/13 17:09:28 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/17 16:34:09 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ typedef struct s_vec3
 }				t_vec3;
 #endif
 
-typedef float t_vec4  __attribute__((ext_vector_type(4)));
 #if 0
+typedef float t_vec4  __attribute__((ext_vector_type(4)));
+#else
 typedef struct s_vec4
 {
 	float		x;
@@ -136,6 +137,7 @@ typedef struct s_cyl
 	float	radius;
 	float	height;
 	t_mat4	mat;
+	t_mat4	inv_mat;
 }				t_cyl;
 
 typedef struct s_cam

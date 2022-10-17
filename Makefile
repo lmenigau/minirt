@@ -13,7 +13,9 @@ SRC		= down.c         \
 		  screen.c       \
 		  storage.c      \
 		  sphere.c       \
-		  vec.c
+		  vec.c          \
+		  transform.c    \
+		  mat.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))

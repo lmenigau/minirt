@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/13 17:21:26 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/18 13:12:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ t_vec3		clamp(t_vec3 v);
 t_vec3		cross(t_vec3 a, t_vec3 b);
 t_vec3		light(t_scene *scene, t_hit hit);
 t_vec3		mul(t_vec3 vec, float b);
+t_vec4		mul4(t_vec4 vec, float b);
+t_vec3		vmul(t_vec3 v1, t_vec3 v2);
+t_vec3		add(t_vec3 v1, t_vec3 v2);
+t_vec3		sub(t_vec3 v1, t_vec3 v2);
+t_vec4		sub4(t_vec4 v1, t_vec4 v2);
 t_vec3		norm(t_vec3 vec);
 t_vec3		parse_color(struct s_parse *parse);
 t_vec3		parse_ori(struct s_parse *parse);
@@ -58,7 +63,24 @@ void		parse_tr(void);
 void		print(const char *str);
 void		pvec3(t_vec3 v);
 void		screen(t_global *global);
-void		set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2);
-void		set_scale(t_mat4 *mat, float height, float radius);
-void		set_translation(t_mat4 *mat, t_vec3 coord);
+t_color		render(t_global *global, t_ivec coord);
+t_vec3		light(t_scene *scene, t_hit hit);
+
+float	plane_solver(t_plane pl, t_ray ray);
+int		hit_plane(t_plane pl, t_ray ray, t_hit *hit);
+float	sphere_solver(t_sphere sp, t_ray ray);
+_Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
+
+void 		pvec3(t_vec3 v);
+size_t		ft_strlen(char *s);
+int			ft_strcmp(const char *s1, const char *s2);
+
+void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2);
+void	set_translation(t_mat4 *mat, t_vec3 coord);
+void	set_scale(t_mat4 *mat, float x, float y, float z);
+t_mat4	mat4mul(t_mat4 m1, t_mat4 m2);
+void	set_identity(t_mat4 *mat);
+t_mat4	mat4inv(t_mat4 m);
+void	printmat4(t_mat4 m);
+
 #endif

@@ -20,25 +20,29 @@ void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2)
 	if (1 + cosA < 1e-6)
 		return ;
 	k = 1 / (1 + cosA);
-	mat.x.x = axis.x * axis.x * k + cosA;
-	mat.x.y = axis.y * axis.x * k - axis.z;
-	mat.x.z = axis.z * axis.x * k - axis.y;
-	mat.y.x = axis.x * axis.y * k + axis.z;
-	mat.y.y = axis.y * axis.y * k + cosA;
-	mat.y.z = axis.z * axis.y * k - axis.x;
-	mat.z.x = axis.x * axis.z * k - axis.y;
-	mat.z.y = axis.y * axis.z * k + axis.x;
-	mat.z.z = axis.z * axis.z * k + cosA;
+	mat->x.x = axis.x * axis.x * k + cosA;
+	mat->x.y = axis.y * axis.x * k - axis.z;
+	mat->x.z = axis.z * axis.x * k - axis.y;
+	mat->y.x = axis.x * axis.y * k + axis.z;
+	mat->y.y = axis.y * axis.y * k + cosA;
+	mat->y.z = axis.z * axis.y * k - axis.x;
+	mat->z.x = axis.x * axis.z * k - axis.y;
+	mat->z.y = axis.y * axis.z * k + axis.x;
+	mat->z.z = axis.z * axis.z * k + cosA;
 }
 
 void	set_translation(t_mat4 *mat, t_vec3 coord)
 {
-	(void) mat;
-	(void) coord;
+	set_identity(mat);
+	mat->x.w = coord.x;
+	mat->y.w = coord.y;
+	mat->z.w = coord.z;
 }
 
-void	set_scale(t_mat4 *mat, float height, float radius)
+void	set_scale(t_mat4 *mat, float x, float y, float z)
 {
-	(void) height;
-	(void) radius;
+	set_identity(mat);
+	mat->x.x = x;
+	mat->y.y = y;
+	mat->z.z = z;
 }
