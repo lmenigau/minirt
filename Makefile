@@ -8,7 +8,9 @@ SRC		= down.c     \
 		  storage.c  \
 		  vec.c      \
 		  libft.c    \
-		  planes.c
+		  planes.c   \
+		  transform.c\
+		  mat.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))

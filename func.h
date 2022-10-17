@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/13 17:21:26 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:20:45 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void		parse_camcyl(struct s_parse *parse);
 t_vec3		cross(t_vec3 a, t_vec3 b);
 float		dot(t_vec3 v1, t_vec3 v2);
 t_vec3		mul(t_vec3 vec, float b);
+t_vec4		mul4(t_vec4 vec, float b);
 t_vec3		vmul(t_vec3 v1, t_vec3 v2);
 t_vec3		add(t_vec3 v1, t_vec3 v2);
 t_vec3		sub(t_vec3 v1, t_vec3 v2);
+t_vec4		sub4(t_vec4 v1, t_vec4 v2);
 t_vec3		norm(t_vec3 vec);
 t_vec3		transform(t_mat mat, t_vec3 v);
 t_vec3		clamp(t_vec3 v);
@@ -58,6 +60,10 @@ int			ft_strcmp(const char *s1, const char *s2);
 
 void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2);
 void	set_translation(t_mat4 *mat, t_vec3 coord);
-void	set_scale(t_mat4 *mat, float height, float radius);
+void	set_scale(t_mat4 *mat, float x, float y, float z);
+t_mat4	mat4mul(t_mat4 m1, t_mat4 m2);
+void	set_identity(t_mat4 *mat);
+t_mat4	mat4inv(t_mat4 m);
+void	printmat4(t_mat4 m);
 
 #endif
