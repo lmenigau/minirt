@@ -2,8 +2,8 @@
 *.d
 *.a
 dep/
+minilibx-linux/test/mlx-test
 obj/
 tags
 miniRT
 .vscode/
-minilibx-linux/test/mlx-test
