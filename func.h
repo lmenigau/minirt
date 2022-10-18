@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/18 13:17:54 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/18 13:21:20 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ t_color		render(t_global *global, t_ivec coord);
 t_vec3		light(t_scene *scene, t_hit hit);
 
 float	plane_solver(t_plane pl, t_ray ray);
-int		hit_plane(t_plane pl, t_ray ray, t_hit *hit);
 float	sphere_solver(t_sphere sp, t_ray ray);
-_Bool	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit);
 _Bool	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit);
 
 void 		pvec3(t_vec3 v);

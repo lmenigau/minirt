@@ -8,7 +8,7 @@ void	parse_matcyl(t_cyl *cyl)
 
 	set_translation(&translation, cyl->coord);
 	set_rotation(&rotation, (t_vec3){0, 0, 1}, cyl->ori);
-	set_scale(&scale, cyl->height, cyl->radius);
+	set_scale(&scale, cyl->radius, cyl->radius, cyl->height);
 }
 
 void	parse_cyl(struct s_parse *parse)
