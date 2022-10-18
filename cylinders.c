@@ -95,32 +95,26 @@ t_ray	set_locray(t_cyl cy, t_ray ray)
 
 void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 {
-	float	d;
-	t_vec3	v;
-	t_vec3	n;
-	// t_vec4	local_v;
+	float	d1;
+	float	d2;
 	t_ray	loc_ray;
 
 	// loc_ray = set_locray(cy, ray);
 	loc_ray = ray;
-	d = cyl_solver(loc_ray);
-	v = add(loc_ray.ori, mul(loc_ray.dir, d));
-	n = norm(sub(v, (t_vec3){0, 0, v.z}));
-	if (d < 0)
+	d1 = cyl_solver(loc_ray);
+	d2 = caps_solver(loc_ray);
+	if (d1 > 0 && (d2 < 0 || d1 < d2))
 	{
-		d = caps_solver(loc_ray);
-		n = (t_vec3){0, 0, -1};
-		v = add(loc_ray.ori, mul(loc_ray.dir, d));
+		hit->d = d1;
+		hit->p = add(loc_ray.ori, mul(loc_ray.dir, d1));
+		hit->n = norm(sub(hit->p, (t_vec3){0, 0, hit->p.z}));
+		hit->c = cy.color;
 	}
-	// local_v = (t_vec4){v.x, v.y, v.z, 1};
-	// local_v = transform4(cy.mat, local_v);
-	// v = (t_vec3){local_v.x, local_v.y, local_v.z};
-	// d = len(sub(ray.ori, v));
-	if (d > 0 && d < hit->d)
+	else if (d2 > 0 && (d1 < 0 || d2 < d1))
 	{
-		hit->d = d;
-		hit->p = v;
-		hit->n = n;
+		hit->d = d2;
+		hit->p = add(loc_ray.ori, mul(loc_ray.dir, d2));
+		hit->n = (t_vec3){0, 0, -1};
 		hit->c = cy.color;
 	}
 }
