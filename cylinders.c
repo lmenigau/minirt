@@ -108,18 +108,20 @@ void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 	float	d1;
 	float	d2;
 	t_vec3	v;
+	t_vec3	origin;
 	t_ray	loc_ray;
 
 	loc_ray = set_locray(cy, ray);
-	// loc_ray = ray;
 	d1 = cyl_solver(loc_ray);
 	d2 = caps_solver(loc_ray);
+	origin = set_worldpoint(cy, (t_vec3){0, 0, 0});
 	if (d1 > 0 && (d2 < 0 || d1 < d2))
 	{
 		v = add(loc_ray.ori, mul(loc_ray.dir, d1));
 		hit->p = set_worldpoint(cy, v);
 		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
-		hit->n = norm(set_worldpoint(cy, sub(v, (t_vec3){0, 0, v.z})));
+		hit->n = norm(set_worldpoint(cy, (t_vec3){v.x, v.y, 0}) - origin);
+		// hit->n = norm(set_worldpoint(cy, sub(v, (t_vec3){0, 0, v.z})));
 		hit->c = cy.color;
 	}
 	else if (d2 > 0 && (d1 < 0 || d2 < d1))
@@ -127,7 +129,7 @@ void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 		v = add(loc_ray.ori, mul(loc_ray.dir, d2));
 		hit->p = set_worldpoint(cy, v);
 		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
-		hit->n = norm(set_worldpoint(cy, (t_vec3){0, 0, -1}));
+		hit->n = norm(set_worldpoint(cy, (t_vec3){0, 0, v.z}) - origin);
 		hit->c = cy.color;
 	}
 }

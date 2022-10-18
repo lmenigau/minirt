@@ -52,9 +52,9 @@ void	set_scale(t_mat4 *mat, float x, float y, float z)
 t_vec4	transform4(t_mat4 mat, t_vec4 v)
 {
 	return ((t_vec4){
-		v.x * mat.x.x + v.y * mat.y.x + v.z * mat.z.x + v.w * mat.w.x,
-		v.x * mat.x.y + v.y * mat.y.y + v.z * mat.z.y + v.w * mat.w.y,
-		v.x * mat.x.z + v.y * mat.y.z + v.z * mat.z.z + v.w * mat.w.z,
-		v.x * mat.x.w + v.y * mat.y.w + v.z * mat.z.w + v.w * mat.w.w
+		v.x * mat.x.x + v.y * mat.x.y + v.z * mat.x.z + v.w * mat.x.w,
+		v.x * mat.y.x + v.y * mat.y.y + v.z * mat.y.z + v.w * mat.y.w,
+		v.x * mat.z.x + v.y * mat.z.y + v.z * mat.z.z + v.w * mat.z.w,
+		v.x * mat.w.x + v.y * mat.w.y + v.z * mat.w.z + v.w * mat.w.w
 	});
 }

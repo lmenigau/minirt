@@ -5,6 +5,7 @@ void	parse_matcyl(t_cyl *cyl)
 	t_mat4	translation;
 	t_mat4	rotation;
 	t_mat4	scale;
+	t_vec3	test;
 
 	set_translation(&translation, cyl->coord);
 	printf("translation\n");
@@ -22,6 +23,8 @@ void	parse_matcyl(t_cyl *cyl)
 	printf("* scale\n");
 	printmat4(cyl->mat);
 	cyl->inv_mat = mat4inv(cyl->mat);
+	test = set_worldpoint(*cyl, (t_vec3){1, 1, 1});
+	printf("vector after transfo: %f, %f, %f\n", test.x, test.y, test.z);
 }
 
 void	parse_cyl(struct s_parse *parse)
