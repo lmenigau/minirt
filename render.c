@@ -26,6 +26,12 @@ t_vec3	intersect(t_global *global, t_ray ray)
 	st = global->parse.scene.st;
 	hit = (t_hit){.d = INFINITY};
 	i = 0;
+	while (i < st.ncyls)
+	{
+		hit_cyl(st.cyls[i], ray, &hit);
+		i++;
+	}
+	i = 0;
 	while (i < st.nplanes)
 	{
 		hit_plane(st.planes[i], ray, &hit);
@@ -35,12 +41,6 @@ t_vec3	intersect(t_global *global, t_ray ray)
 	while (i < st.nspheres)
 	{
 		hit_sphere(st.spheres[i], ray, &hit);
-		i++;
-	}
-	i = 0;
-	while (i < st.ncyls)
-	{
-		hit_cyl(st.cyls[i], ray, &hit);
 		i++;
 	}
 	if (hit.d > 0)

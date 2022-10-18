@@ -42,7 +42,7 @@ float	cyl_solver(t_cyl cy, t_ray ray)
 	return (-1);
 }
 
-_Bool	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
+void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 {
 	float	d;
 	t_vec3	v;
@@ -51,14 +51,12 @@ _Bool	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 	d = cyl_solver(cy, ray);
 	// if (d < 0)
 	// 	d = caps_solver(cy, ray);
-	if (d < 0)
-		return (-1);
 	v = add(ray.ori, mul(ray.dir, d)); // transform v
-	if (len(sub(hit->p, ray.ori)) == 0
-		|| len(sub(v, ray.ori)) < len(sub(hit->p, ray.ori)))
+	if (d > 0 && d < hit->d)
 	{
+		hit->d = d;
 		hit->p = v;
-		hit->n = norm(sub((t_vec3){0, 0, v.z}, v));
+		hit->n = norm(sub(v, (t_vec3){0, 0, v.z}));
 		hit->c = cy.color;
 	}
 	return (0);
