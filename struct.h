@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/17 16:34:09 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:13:40 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ typedef struct s_scene
 }				t_scene;
 
 struct s_buf
-{		
+{
 	size_t	index;
 	size_t	len;
 	int		fd;

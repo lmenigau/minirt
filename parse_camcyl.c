@@ -8,7 +8,10 @@ void	parse_matcyl(t_cyl *cyl)
 
 	set_translation(&translation, cyl->coord);
 	set_rotation(&rotation, (t_vec3){0, 0, 1}, cyl->ori);
-	set_scale(&scale, cyl->radius, cyl->radius, cyl->height);
+	set_scale(&scale, cyl->radius, cyl->radius, cyl->height / 2);
+	cyl->mat = mat4mul(translation, rotation);
+	cyl->mat = mat4mul(cyl->mat, scale);
+	cyl->inv_mat = mat4inv(cyl->mat);
 }
 
 void	parse_cyl(struct s_parse *parse)
@@ -24,6 +27,7 @@ void	parse_cyl(struct s_parse *parse)
 	store->cyls[store->ncyls].radius = parse_num(parse) / 2;
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
+	parse_matcyl(&store->cyls[store->ncyls]);
 	store->ncyls++;
 }
 

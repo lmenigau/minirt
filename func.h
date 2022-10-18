@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/18 14:27:12 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/18 14:53:18 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_vec3		light(t_scene *scene, t_hit hit);
 
 float	plane_solver(t_plane pl, t_ray ray);
 float	sphere_solver(t_sphere sp, t_ray ray);
-_Bool	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit);
+void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit);
 
 void 		pvec3(t_vec3 v);
 size_t		ft_strlen(char *s);
@@ -81,5 +81,6 @@ t_mat4	mat4mul(t_mat4 m1, t_mat4 m2);
 void	set_identity(t_mat4 *mat);
 t_mat4	mat4inv(t_mat4 m);
 void	printmat4(t_mat4 m);
+t_vec4	transform4(t_mat4 mat, t_vec4 v);
 
 #endif

@@ -9,7 +9,7 @@ void	set_identity(t_mat4 *mat)
 }
 
 void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2)
-{	
+{
 	t_vec3	axis;
 	float	cosA;
 	float	k;
@@ -45,4 +45,14 @@ void	set_scale(t_mat4 *mat, float x, float y, float z)
 	mat->x.x = x;
 	mat->y.y = y;
 	mat->z.z = z;
+}
+
+t_vec4	transform4(t_mat4 mat, t_vec4 v)
+{
+	return ((t_vec4){
+		v.x * mat.x.x + v.y * mat.y.x + v.z * mat.z.x + v.w * mat.w.x,
+		v.x * mat.x.y + v.y * mat.y.y + v.z * mat.z.y + v.w * mat.w.y,
+		v.x * mat.x.z + v.y * mat.y.z + v.z * mat.z.z + v.w * mat.w.z,
+		v.w * mat.x.w + v.y * mat.y.w + v.z * mat.z.w + v.w * mat.w.w
+	});
 }

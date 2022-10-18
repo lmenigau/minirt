@@ -40,11 +40,11 @@ t_mat4	mat4mul(t_mat4 m1, t_mat4 m2)
 t_mat4	mat4inv(t_mat4 m)
 {
 	t_mat4	id;
-	
+
 	set_identity(&id);
 
 	id.x = mul4(id.x, 1 / m.x.x);
-	m.x = mul4(m.x, 1 / m.x.x);;
+	m.x = mul4(m.x, 1 / m.x.x);
 
 	id.y = sub4(id.y, mul4(id.x, m.y.x));
 	m.y = sub4(m.y, mul4(m.x, m.y.x));
