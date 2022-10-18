@@ -53,6 +53,6 @@ t_vec4	transform4(t_mat4 mat, t_vec4 v)
 		v.x * mat.x.x + v.y * mat.y.x + v.z * mat.z.x + v.w * mat.w.x,
 		v.x * mat.x.y + v.y * mat.y.y + v.z * mat.z.y + v.w * mat.w.y,
 		v.x * mat.x.z + v.y * mat.y.z + v.z * mat.z.z + v.w * mat.w.z,
-		v.w * mat.x.w + v.y * mat.y.w + v.z * mat.z.w + v.w * mat.w.w
+		v.x * mat.x.w + v.y * mat.y.w + v.z * mat.z.w + v.w * mat.w.w
 	});
 }

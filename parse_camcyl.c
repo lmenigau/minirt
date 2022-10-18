@@ -23,7 +23,7 @@ void	parse_cyl(struct s_parse *parse)
 	if (store->ncyls >= 1000)
 		panic_with_error(NULL, "Too many cylinders");
 	store->cyls[store->ncyls].coord = parse_vec(parse);
-	store->cyls[store->ncyls].ori = parse_vec(parse);
+	store->cyls[store->ncyls].ori = norm(parse_vec(parse));
 	store->cyls[store->ncyls].radius = parse_num(parse) / 2;
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
