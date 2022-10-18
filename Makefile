@@ -15,7 +15,8 @@ SRC		= down.c         \
 		  sphere.c       \
 		  vec.c          \
 		  transform.c    \
-		  mat.c
+		  mat.c          \
+		  cylinders.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))

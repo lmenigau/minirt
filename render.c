@@ -37,6 +37,12 @@ t_vec3	intersect(t_global *global, t_ray ray)
 		hit_sphere(st.spheres[i], ray, &hit);
 		i++;
 	}
+	i = 0;
+	while (i < st.ncyls)
+	{
+		hit_cyl(st.cyls[i], ray, &hit);
+		i++;
+	}
 	if (hit.d > 0)
 		return (light(&global->parse.scene, hit));
 	return (0);
