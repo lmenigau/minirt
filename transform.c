@@ -15,6 +15,8 @@ void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2)
 	float	k;
 
 	set_identity(mat);
+	if(is_colinear(v1, v2))
+		return ;
 	axis = cross(v1, v2);
 	cosA = dot(v1, v2);
 	if (1 + cosA < 1e-6)

@@ -67,3 +67,32 @@ t_vec3	clamp(t_vec3 v)
 {
 	return (t_vec3){fminf(v.x, 1), fminf(v.y, 1), fminf(v.z, 1)};
 }
+
+_Bool	is_colinear(t_vec3 v1, t_vec3 v2)
+{
+	int	k1;
+	int	k2;
+	int	k3;
+
+	if ((v1.x ==0 && v2.x != 0)
+		|| (v1.y ==0 && v2.y != 0)
+		|| (v1.y ==0 && v2.y != 0))
+		return (0);
+	if (v1.x ==0)
+		k1 = 0;
+	else
+		k1 = v2.x / v1.x;
+	if (v1.y ==0)
+		k2 = 0;
+	else
+		k2 = v2.y / v1.y;
+	if (v1.z ==0)
+		k3 = 0;
+	else
+		k3 = v2.z / v1.z;
+	if ((k1 == 0 || k2 == 0 || k1 == k2)
+		&& (k1 == 0 || k3 == 0 || k1 == k3)
+		&& (k2 == 0 || k3 == 0 || k2 == k3))
+		return (1);
+	return (0);
+}

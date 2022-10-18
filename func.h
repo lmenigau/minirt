@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/18 14:53:18 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/18 20:31:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void	set_identity(t_mat4 *mat);
 t_mat4	mat4inv(t_mat4 m);
 void	printmat4(t_mat4 m);
 t_vec4	transform4(t_mat4 mat, t_vec4 v);
+_Bool	is_colinear(t_vec3 v1, t_vec3 v2);
 
 #endif
