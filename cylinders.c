@@ -90,31 +90,44 @@ t_ray	set_locray(t_cyl cy, t_ray ray)
 			local_p2.y - local_p1.y,
 			local_p2.z - local_p1.z});
 	return (loc_ray);
+}
 
+t_vec3	set_worldpoint(t_cyl cy, t_vec3 loc_v)
+{
+	t_vec3 v;
+	t_vec4	loc_v4;
+
+	loc_v4 = (t_vec4){loc_v.x, loc_v.y, loc_v.z, 1};
+	loc_v4 = transform4(cy.mat, loc_v4);
+	v = (t_vec3){loc_v4.x, loc_v4.y, loc_v4.z};
+	return (v);
 }
 
 void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 {
 	float	d1;
 	float	d2;
+	t_vec3	v;
 	t_ray	loc_ray;
 
-	// loc_ray = set_locray(cy, ray);
-	loc_ray = ray;
+	loc_ray = set_locray(cy, ray);
+	// loc_ray = ray;
 	d1 = cyl_solver(loc_ray);
 	d2 = caps_solver(loc_ray);
 	if (d1 > 0 && (d2 < 0 || d1 < d2))
 	{
-		hit->d = d1;
-		hit->p = add(loc_ray.ori, mul(loc_ray.dir, d1));
-		hit->n = norm(sub(hit->p, (t_vec3){0, 0, hit->p.z}));
+		v = add(loc_ray.ori, mul(loc_ray.dir, d1));
+		hit->p = set_worldpoint(cy, v);
+		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
+		hit->n = norm(set_worldpoint(cy, sub(v, (t_vec3){0, 0, v.z})));
 		hit->c = cy.color;
 	}
 	else if (d2 > 0 && (d1 < 0 || d2 < d1))
 	{
-		hit->d = d2;
-		hit->p = add(loc_ray.ori, mul(loc_ray.dir, d2));
-		hit->n = (t_vec3){0, 0, -1};
+		v = add(loc_ray.ori, mul(loc_ray.dir, d2));
+		hit->p = set_worldpoint(cy, v);
+		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
+		hit->n = norm(set_worldpoint(cy, (t_vec3){0, 0, -1}));
 		hit->c = cy.color;
 	}
 }
