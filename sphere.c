@@ -32,7 +32,7 @@ void	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 	float	d;
 
 	d = sphere_solver(sp, ray);
-	if (d > 0 && d < hit->d)
+	if (d > 1 && d < hit->d)
 	{
 		hit->d = d;
 		hit->p = ray.ori + ray.dir * d;

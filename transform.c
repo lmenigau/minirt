@@ -20,9 +20,7 @@ void	set_rotation(t_mat4	*mat, t_vec3 v1, t_vec3 v2)
 	if(is_colinear(v1, v2))
 		return ;
 	axis = cross(v1, v2);
-	printf("v2 %f, %f, %f\n", v2.x, v2.y, v2.z);
 	cosA = dot(v1, v2);
-	printf("cosA: %f\n", cosA);
 	if (1 + cosA < 1e-6)
 		return ;
 	k = 1 / (1 + cosA);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/19 11:42:49 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/19 18:00:38 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ void	printmat4(t_mat4 m);
 t_vec4	transform4(t_mat4 mat, t_vec4 v);
 _Bool	is_colinear(t_vec3 v1, t_vec3 v2);
 t_vec3	set_worldpoint(t_cyl cy, t_vec3 loc_v);
+int	is_identity(t_mat4 m);
+void	inv_col1_rows(t_mat4 *m, t_mat4 *id);
+void	inv_col2_rows(t_mat4 *m, t_mat4 *id);
 
 #endif
