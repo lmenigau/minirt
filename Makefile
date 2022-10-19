@@ -16,6 +16,8 @@ SRC		= down.c         \
 		  vec.c          \
 		  transform.c    \
 		  mat.c          \
+		  mat_inv.c      \
+		  mat_inv_utils.c \
 		  cylinders.c
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))

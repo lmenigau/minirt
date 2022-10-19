@@ -71,7 +71,6 @@ float	caps_solver(t_ray ray)
 	return (-1);
 }
 
-
 t_ray	set_locray(t_cyl cy, t_ray ray)
 {
 	t_vec4	local_p1;
@@ -94,7 +93,7 @@ t_ray	set_locray(t_cyl cy, t_ray ray)
 
 t_vec3	set_worldpoint(t_cyl cy, t_vec3 loc_v)
 {
-	t_vec3 v;
+	t_vec3	v;
 	t_vec4	loc_v4;
 
 	loc_v4 = (t_vec4){loc_v.x, loc_v.y, loc_v.z, 1};
@@ -103,33 +102,42 @@ t_vec3	set_worldpoint(t_cyl cy, t_vec3 loc_v)
 	return (v);
 }
 
+
+
 void	hit_cyl(t_cyl cy, t_ray ray, t_hit *hit)
 {
 	float	d1;
 	float	d2;
-	t_vec3	v;
+	t_vec3	v1;
+	t_vec3	v2;
+	t_vec3	p;
 	t_vec3	origin;
 	t_ray	loc_ray;
 
 	loc_ray = set_locray(cy, ray);
 	d1 = cyl_solver(loc_ray);
+	v1 = add(loc_ray.ori, mul(loc_ray.dir, d1));
+	p = set_worldpoint(cy, v1);
+	d1 = (p.x - ray.ori.x) / ray.dir.x;
 	d2 = caps_solver(loc_ray);
+	v2 = add(loc_ray.ori, mul(loc_ray.dir, d2));
+	p = set_worldpoint(cy, v2);
+	d2 = (p.x - ray.ori.x) / ray.dir.x;
 	origin = set_worldpoint(cy, (t_vec3){0, 0, 0});
-	if (d1 > 0 && (d2 < 0 || d1 < d2))
+	if (d1 > 1 && (d2 < 1 || d1 <= d2))
 	{
-		v = add(loc_ray.ori, mul(loc_ray.dir, d1));
-		hit->p = set_worldpoint(cy, v);
+		// v = add(loc_ray.ori, mul(loc_ray.dir, d1));
+		hit->p = set_worldpoint(cy, v1);
 		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
-		hit->n = norm(set_worldpoint(cy, (t_vec3){v.x, v.y, 0}) - origin);
-		// hit->n = norm(set_worldpoint(cy, sub(v, (t_vec3){0, 0, v.z})));
+		hit->n = norm(set_worldpoint(cy, (t_vec3){v1.x, v1.y, 0}) - origin);
 		hit->c = cy.color;
 	}
-	else if (d2 > 0 && (d1 < 0 || d2 < d1))
+	else if (d2 > 1 && (d1 <= 1 || d2 < d1))
 	{
-		v = add(loc_ray.ori, mul(loc_ray.dir, d2));
-		hit->p = set_worldpoint(cy, v);
+		// v = add(loc_ray.ori, mul(loc_ray.dir, d2));
+		hit->p = set_worldpoint(cy, v2);
 		hit->d = (hit->p.x - ray.ori.x) / ray.dir.x;
-		hit->n = norm(set_worldpoint(cy, (t_vec3){0, 0, v.z}) - origin);
+		hit->n = norm(set_worldpoint(cy, (t_vec3){0, 0, v2.z}) - origin);
 		hit->c = cy.color;
 	}
 }
