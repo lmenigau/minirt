@@ -5,26 +5,23 @@ void	parse_matcyl(t_cyl *cyl)
 	t_mat4	translation;
 	t_mat4	rotation;
 	t_mat4	scale;
-	t_vec3	test;
 
 	set_translation(&translation, cyl->coord);
-	printf("translation\n");
-	printmat4(translation);
+	// printf("translation\n");
+	// printmat4(translation);
 	set_rotation(&rotation, (t_vec3){0, 0, 1}, cyl->ori);
-	printf("rotation\n");
-	printmat4(rotation);
+	// printf("rotation\n");
+	// printmat4(rotation);
 	set_scale(&scale, cyl->radius, cyl->radius, cyl->height / 2);
-	printf("scale\n");
-	printmat4(scale);
+	// printf("scale\n");
+	// printmat4(scale);
 	cyl->mat = mat4mul(translation, rotation);
-	printf("translation * rotation\n");
-	printmat4(cyl->mat);
+	// printf("translation * rotation\n");
+	// printmat4(cyl->mat);
 	cyl->mat = mat4mul(cyl->mat, scale);
-	printf("* scale\n");
-	printmat4(cyl->mat);
+	// printf("* scale\n");
+	// printmat4(cyl->mat);
 	cyl->inv_mat = mat4inv(cyl->mat);
-	test = set_worldpoint(*cyl, (t_vec3){1, 1, 1});
-	printf("vector after transfo: %f, %f, %f\n", test.x, test.y, test.z);
 }
 
 void	parse_cyl(struct s_parse *parse)
