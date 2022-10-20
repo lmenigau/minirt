@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/20 10:51:40 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/20 15:06:56 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3		clamp(t_vec3 v);
 t_vec3		cross(t_vec3 a, t_vec3 b);
 t_vec3		light(t_scene *scene, t_hit hit);
 t_vec3		mul(t_vec3 vec, float b);
-t_vec4		mul4(t_vec4 vec, float b);
+t_vec4		mul4(t_vec4 vec, double b);
 t_vec3		vmul(t_vec3 v1, t_vec3 v2);
 t_vec3		add(t_vec3 v1, t_vec3 v2);
 t_vec3		sub(t_vec3 v1, t_vec3 v2);

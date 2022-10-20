@@ -84,7 +84,7 @@ _Bool	cyl_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit)
 		v = add(loc_ray.ori, mul(loc_ray.dir, d.x));
 		p = set_worldpoint(cy, v);
 		world_d = (p.x - ray.ori.x) / ray.dir.x;
-		if (world_d < 1)
+		if (world_d < 1 || world_d >= hit->d)
 			return (0);
 		hit->p = p;
 		hit->d = world_d;
@@ -109,7 +109,7 @@ _Bool	caps_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit)
 		v = add(loc_ray.ori, mul(loc_ray.dir, d.y));
 		p = set_worldpoint(cy, v);
 		world_d = (p.x - ray.ori.x) / ray.dir.x;
-		if (world_d < 1)
+		if (world_d < 1 || world_d >= hit->d)
 			return (0);
 		hit->p = p;
 		hit->d = world_d;

@@ -54,9 +54,9 @@ t_mat4	mat4mul(t_mat4 m1, t_mat4 m2)
 
 int	is_close(float n1, float n2)
 {
-	if (n1 > n2 && n1 - n2 < 1e-6 && n1 - n2 > -1e-6)
+	if (n1 > n2 && n1 - n2 < 10e-6 && n1 - n2 > -10e-6)
 		return (1);
-	if (n2 > n1 && n2 - n1 < 1e-6 && n2 - n1 > -1e-6)
+	if (n2 >= n1 && n2 - n1 < 10e-6 && n2 - n1 > -10e-6)
 		return (1);
 	return (0);
 }

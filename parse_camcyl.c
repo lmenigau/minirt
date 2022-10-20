@@ -28,8 +28,10 @@ void	parse_cyl(struct s_parse *parse)
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
 	parse_matcyl(&store->cyls[store->ncyls]);
-	printmat4(store->cyls[store->ncyls].inv_mat);
+	printf("mat\n");
 	printmat4(store->cyls[store->ncyls].mat);
+	printf("inv_mat\n");
+	printmat4(store->cyls[store->ncyls].inv_mat);
 	store->ncyls++;
 }
 

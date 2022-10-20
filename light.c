@@ -9,7 +9,7 @@ t_vec3	col(t_light *light, t_hit hit, t_vec3 lp)
 
 	d = len(lp);
 	lamb = fmaxf(0, dot(norm(lp), hit.n));
-	t = hit.c * light->bright * 1024 * lamb * light->color / (M_PI * d * d);
+	t = hit.c * light->bright * 800 * lamb * light->color / (M_PI * d * d);
 	return (t);
 }
 
@@ -36,6 +36,14 @@ _Bool visible(t_scene *scene, t_hit hit, t_light *light, t_vec3 *lp)
 			return (0);
 		i++;
 	}
+	while (i < scene->st.ncyls)
+	{
+		d = sphere_solver(scene->st.spheres[i], (t_ray){pl, hit.p + pl * 0x1p-10});
+		if (d > 0 && d < len(*lp))
+			return (0);
+		i++;
+	}
+
 	return (1);
 }
 
