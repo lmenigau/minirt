@@ -81,7 +81,7 @@ _Bool	cyl_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit)
 	if (d.x > 0 && (d.y < 0 || d.x <= d.y))
 	{
 		loc_ray = set_locray(cy, ray);
-		v = add(loc_ray.ori, mul(loc_ray.dir, d.x));
+		v = loc_ray.ori + loc_ray.dir * d.x;
 		p = set_worldpoint(cy, v);
 		world_d = (p.x - ray.ori.x) / ray.dir.x;
 		if (world_d < 1)
