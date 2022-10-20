@@ -1,24 +1,25 @@
-SRC		= down.c         \
-		  libft.c        \
-		  light.c        \
-		  main.c         \
-		  parse_camcyl.c \
-		  parse_light.c  \
-		  parse_object.c \
-		  parse_start.c  \
-		  parsing.c      \
-		  planes.c       \
-		  remove.c       \
-		  render.c       \
-		  screen.c       \
-		  storage.c      \
-		  sphere.c       \
-		  vec.c          \
-		  transform.c    \
-		  mat.c          \
-		  mat_inv.c      \
-		  mat_inv_utils.c \
-		  cylinders.c
+SRC		= down.c            \
+		  libft.c           \
+		  light.c           \
+		  main.c            \
+		  parse_camcyl.c    \
+		  parse_light.c     \
+		  parse_object.c    \
+		  parse_start.c     \
+		  parsing.c         \
+		  planes.c          \
+		  remove.c          \
+		  render.c          \
+		  screen.c          \
+		  storage.c         \
+		  sphere.c          \
+		  vec.c             \
+		  transform.c       \
+		  mat.c             \
+		  mat_inv.c         \
+		  mat_inv_utils.c   \
+		  cylinders.c       \
+		  cylinders_inter.c \
 
 OBJ		:= $(addprefix obj/, $(SRC:.c=.o))
 DEP := $(addprefix dep/, $(SRC:.c=.d))

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:22:41 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/19 18:00:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/20 10:51:40 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,11 @@ t_vec3	set_worldpoint(t_cyl cy, t_vec3 loc_v);
 int	is_identity(t_mat4 m);
 void	inv_col1_rows(t_mat4 *m, t_mat4 *id);
 void	inv_col2_rows(t_mat4 *m, t_mat4 *id);
+_Bool	cyl_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit);
+float	caps_solver(t_ray ray);
+_Bool	cyl_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit);
+_Bool	caps_inter(t_vec2 d, t_cyl cy, t_ray ray, t_hit *hit);
+float	cyl_solver(t_ray ray);
+t_ray	set_locray(t_cyl cy, t_ray ray);
 
 #endif
