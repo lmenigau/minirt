@@ -86,7 +86,6 @@ t_mat4	mat4inv(t_mat4 m)
 	int		i;
 
 	set_identity(&id);
-	printf("test Identity: %d\n", is_identity(id));
 	i = 0;
 	while (is_identity(m) == 0 && i < 100)
 	{
@@ -96,8 +95,5 @@ t_mat4	mat4inv(t_mat4 m)
 		inv_col4(&m, &id);
 		i++;
 	}
-	printf("old m\n");
-	printmat4(m);
-	printf("nb tours %d\n", i);
 	return (id);
 }
