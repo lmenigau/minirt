@@ -28,8 +28,6 @@ void	parse_cyl(struct s_parse *parse)
 	store->cyls[store->ncyls].height = parse_num(parse);
 	store->cyls[store->ncyls].color = parse_color(parse);
 	parse_matcyl(&store->cyls[store->ncyls]);
-	printmat4(store->cyls[store->ncyls].inv_mat);
-	printmat4(store->cyls[store->ncyls].mat);
 	store->ncyls++;
 }
 
@@ -75,5 +73,5 @@ void	parse_bigc(struct s_parse *parse)
 		panic_with_error(NULL, "there must be a signle C cam");
 	else
 		parse_cam(parse);
-	parse->scene.iscam= 1;
+	parse->scene.iscam = 1;
 }

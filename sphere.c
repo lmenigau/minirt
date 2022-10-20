@@ -2,7 +2,7 @@
 
 float	sphere_solver(t_sphere sp, t_ray ray)
 {
-	float		delta;
+	float	delta;
 	t_vec3	oc;
 	t_vec2	inter;
 	t_vec3	v;
@@ -40,4 +40,3 @@ void	hit_sphere(t_sphere sp, t_ray ray, t_hit *hit)
 		hit->c = sp.color;
 	}
 }
-
