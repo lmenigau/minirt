@@ -9,7 +9,7 @@ t_vec3	col(t_light *light, t_hit hit, t_vec3 lp)
 
 	d = len(lp);
 	lamb = fmaxf(0, dot(norm(lp), hit.n));
-	t = hit.c * light->bright * 1024 * lamb * light->color / (M_PI * d * d);
+	t = hit.c * light->bright * 800 * lamb * light->color / (M_PI * d * d);
 	return (t);
 }
 

@@ -19,7 +19,7 @@ t_vec3	mul(t_vec3 vec, float b)
 	return ((t_vec3){vec.x * b, vec.y * b, vec.z * b});
 }
 
-t_vec4	mul4(t_vec4 vec, float b)
+t_vec4	mul4(t_vec4 vec, double b)
 {
 	return ((t_vec4){vec.x * b, vec.y * b, vec.z * b, vec.w * b});
 }
