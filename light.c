@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lomeniga <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/21 11:51:08 by lomeniga          #+#    #+#             */
+/*   Updated: 2022/10/21 11:55:53 by lomeniga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 #include <math.h>
 
@@ -61,13 +73,14 @@ t_vec3	light(t_scene *scene, t_hit hit)
 	int		i;
 	t_vec3	c;
 	t_vec3	lp;
+	t_vec3	pl;
 
 	c = scene->ambiant * hit.c;
 	i = 0;
 	while (i < scene->st.nlights)
 	{
 		lp = (scene->st.lights[i].coord - hit.p);
-		t_vec3 (pl) = norm(lp);
+		pl = norm(lp);
 		if (visible(scene, len(lp), (t_ray){pl, hit.p + pl * .0009765625}))
 			c += col(&scene->st.lights[i], hit, lp);
 		i++;
