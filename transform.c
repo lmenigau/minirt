@@ -1,5 +1,34 @@
 #include "minirt.h"
 
+_Bool	is_colinear(t_vec3 v1, t_vec3 v2)
+{
+	int	k1;
+	int	k2;
+	int	k3;
+
+	if ((v1.x == 0 && v2.x != 0)
+		|| (v1.y == 0 && v2.y != 0)
+		|| (v1.y == 0 && v2.y != 0))
+		return (0);
+	if (v1.x == 0)
+		k1 = 0;
+	else
+		k1 = v2.x / v1.x;
+	if (v1.y == 0)
+		k2 = 0;
+	else
+		k2 = v2.y / v1.y;
+	if (v1.z == 0)
+		k3 = 0;
+	else
+		k3 = v2.z / v1.z;
+	if ((k1 == 0 || k2 == 0 || k1 == k2)
+		&& (k1 == 0 || k3 == 0 || k1 == k3)
+		&& (k2 == 0 || k3 == 0 || k2 == k3))
+		return (1);
+	return (0);
+}
+
 void	set_identity(t_mat4 *mat)
 {
 	mat->x = (t_vec4){1, 0, 0, 0};
@@ -49,14 +78,4 @@ void	set_scale(t_mat4 *mat, float x, float y, float z)
 	mat->x.x = x;
 	mat->y.y = y;
 	mat->z.z = z;
-}
-
-t_vec4	transform4(t_mat4 mat, t_vec4 v)
-{
-	return ((t_vec4){
-		v.x * mat.x.x + v.y * mat.x.y + v.z * mat.x.z + v.w * mat.x.w,
-		v.x * mat.y.x + v.y * mat.y.y + v.z * mat.y.z + v.w * mat.y.w,
-		v.x * mat.z.x + v.y * mat.z.y + v.z * mat.z.z + v.w * mat.z.w,
-		v.x * mat.w.x + v.y * mat.w.y + v.z * mat.w.z + v.w * mat.w.w
-	});
 }

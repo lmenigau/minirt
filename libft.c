@@ -10,9 +10,9 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-size_t ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	while (s[len])

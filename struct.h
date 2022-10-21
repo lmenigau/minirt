@@ -6,17 +6,18 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:03:28 by lomeniga          #+#    #+#             */
-/*   Updated: 2022/10/20 15:58:02 by mriant           ###   ########.fr       */
+/*   Updated: 2022/10/21 10:10:29 by lomeniga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include <stddef.h>
 
 typedef struct s_options
 {
 	_Bool	save;
-}			t_options;
+}				t_options;
 
 typedef unsigned char	t_uchar;
 
@@ -32,19 +33,15 @@ typedef struct s_vec2
 	float		y;
 }				t_vec2;
 
-typedef float t_vec3  __attribute__((ext_vector_type(3)));
-#if 0
-typedef struct s_vec3
-{
-	float		x;
-	float		y;
-	float		z;
-}				t_vec3;
-#endif
+__attribute__((ext_vector_type(3)))
+typedef float t_vec3;
 
-#if 0
-typedef double t_vec4  __attribute__((ext_vector_type(4)));
-#else
+# if __has_attribute(ext_vector_type)
+
+__attribute__((ext_vector_type(4)))
+typedef double t_vec4;
+# else
+
 typedef struct s_vec4
 {
 	double		x;
@@ -52,8 +49,7 @@ typedef struct s_vec4
 	double		z;
 	double		w;
 }				t_vec4;
-#endif
-
+# endif
 
 typedef struct s_ray
 {
@@ -88,7 +84,7 @@ typedef struct s_hit
 	t_vec3		p;
 	t_vec3		n;
 	t_vec3		c;
-	float			d;
+	float		d;
 
 }				t_hit;
 

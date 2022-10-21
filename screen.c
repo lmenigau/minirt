@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 void	store_pixel(t_global *global, t_ivec pos, t_color col)
 {
 	unsigned int	*ptr;
@@ -10,35 +9,14 @@ void	store_pixel(t_global *global, t_ivec pos, t_color col)
 	*ptr = mlx_get_color_value(global->mlx, col.r << 16 | col.g << 8 | col.b);
 }
 
-void	iterate_pixels(t_global *global)
+int	escape(int keysim, t_global *global)
 {
-	t_ivec	it;
-	t_color	col;
-	t_ivec	reso;
-
-	it.y = 0;
-	reso = global->parse.scene.reso;
-	while (it.y < reso.y)
-	{
-		it.x = 0;
-		while (it.x < reso.x)
-		{
-			col = render(global, it);
-			store_pixel(global, it, col);
-			it.x++;
-		}
-		it.y++;
-	}
-}
-
-int escape(int keysim, t_global *global)
-{
-	if (keysim == XK_Escape)
+	if (keysim == XK_ESCAPE)
 		mlx_loop_end(global->mlx);
 	return (0);
 }
 
-int win_close(t_global *global)
+int	win_close(t_global *global)
 {
 	mlx_loop_end(global->mlx);
 	return (0);
@@ -65,7 +43,7 @@ void	window(t_global *global)
 			&global->sizeline, &(int){0});
 	global->ratio = reso->y / (float)reso->x;
 	mlx_key_hook(global->win, escape, global);
-	mlx_hook(global->win, DestroyNotify, 0, win_close, global);
+	mlx_hook(global->win, DESTROYNOTIFY, 0, win_close, global);
 }
 
 void	screen(t_global *global)

@@ -4,6 +4,7 @@ SRC		= down.c            \
 		  main.c            \
 		  parse_camcyl.c    \
 		  parse_light.c     \
+		  parse_num.c       \
 		  parse_object.c    \
 		  parse_start.c     \
 		  parsing.c         \
@@ -15,6 +16,8 @@ SRC		= down.c            \
 		  sphere.c          \
 		  vec.c             \
 		  transform.c       \
+		  arithmv3.c        \
+		  arithmv4.c		\
 		  mat.c             \
 		  mat_inv.c         \
 		  mat_inv_utils.c   \
@@ -31,7 +34,7 @@ MLX_L = ${MLX:lib%.a=%}
 
 NAME	= miniRT
 
-CFLAGS	:= $(DEBUG) -Ofast -flto -g -Wall -Wextra -Werror
+CFLAGS	:= $(DEBUG) -Ofast -march=native -flto -g -Wall -Wextra -Werror
 CPPFLAGS += -I ${MLX_DIR}
 LFLAGS	=  -l${MLX_L} -lXext -lX11 -lm
 LDFLAGS	= -L ${MLX_DIR}
