@@ -5,7 +5,7 @@ t_vec3	col(t_light *light, t_hit hit, t_vec3 lp)
 {
 	t_vec3	t;
 	float	lamb;
-	float d;
+	float	d;
 
 	d = len(lp);
 	lamb = fmaxf(0, dot(norm(lp), hit.n));
@@ -13,7 +13,7 @@ t_vec3	col(t_light *light, t_hit hit, t_vec3 lp)
 	return (t);
 }
 
-_Bool visible_cyl(t_scene *scene, float max_d, t_ray ray)
+_Bool	visible_cyl(t_scene *scene, float max_d, t_ray ray)
 {
 	int		i;
 	float	d;
@@ -32,7 +32,7 @@ _Bool visible_cyl(t_scene *scene, float max_d, t_ray ray)
 	return (1);
 }
 
-_Bool visible(t_scene *scene, float max_d, t_ray ray)
+_Bool	visible(t_scene *scene, float max_d, t_ray ray)
 {
 	int		i;
 	float	d;
@@ -67,8 +67,8 @@ t_vec3	light(t_scene *scene, t_hit hit)
 	while (i < scene->st.nlights)
 	{
 		lp = (scene->st.lights[i].coord - hit.p);
-		t_vec3 pl = norm(lp);
-		if (visible(scene, len(lp), (t_ray){pl, hit.p + pl * 0x1p-10}))
+		t_vec3 (pl) = norm(lp);
+		if (visible(scene, len(lp), (t_ray){pl, hit.p + pl * .0009765625}))
 			c += col(&scene->st.lights[i], hit, lp);
 		i++;
 	}

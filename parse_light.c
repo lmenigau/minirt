@@ -1,5 +1,5 @@
-
 #include "func.h"
+
 void	parse_ambiant(struct s_parse *parse)
 {
 	parse->current = next_char(&parse->buf);
@@ -18,7 +18,7 @@ void	parse_ambiant(struct s_parse *parse)
 void	parse_light(struct s_parse *parse)
 {
 	t_store	*store;
-	float b;
+	float	b;
 
 	store = &parse->scene.st;
 	parse->current = next_char(&parse->buf);
@@ -27,7 +27,7 @@ void	parse_light(struct s_parse *parse)
 	store->lights[store->nlights].coord = parse_vec(parse);
 	b = parse_num(parse);
 	if (b < 0 || b > 1)
-			panic_with_error(NULL, "Brightness must be in the range 0 to 1");
+		panic_with_error(NULL, "Brightness must be in the range 0 to 1");
 	store->lights[store->nlights].bright = b;
 	store->lights[store->nlights].color = parse_color(parse);
 	store->nlights++;

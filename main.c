@@ -48,12 +48,12 @@ void	parse_opt(t_global *global, int ac, char *av[])
 			fd = open(av[index], O_RDONLY);
 			if (fd < 0)
 				panic_with_error(global, av[index]);
-			if (ft_strcmp(av[index] + (ft_strlen(av[index]) - 3),  ".rt"))
+			if (ft_strcmp(av[index] + (ft_strlen(av[index]) - 3), ".rt"))
 				panic_with_error(global, "missing .rt extension");
 			parse_scene(global, fd);
 		}
 		else
-		panic_with_error(NULL, "Too many arguments");
+			panic_with_error(NULL, "Too many arguments");
 		index++;
 	}
 	if (fd == -2)
